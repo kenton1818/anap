@@ -41,7 +41,7 @@
             android:background="@drawable/text_gray_background"/>
     </LinearLayout>
 
-    <mrkj.library.wheelview.circlebar.CircleBar
+    <com.example.lui_project.circlebar.CircleBar
         android:id="@+id/show_progress"
         android:layout_width="match_parent"
         android:layout_height="@dimen/width_size_0"

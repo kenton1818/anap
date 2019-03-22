@@ -18,8 +18,7 @@ import android.widget.Toast;
 
 
 import java.text.DecimalFormat;
-
-import mrkj.library.wheelview.circlebar.CircleBar;
+import com.example.lui_project.circlebar.CircleBar;
 
 import com.example.lui_project.R;
 import com.example.lui_project.service.StepCounterService;
@@ -38,10 +37,6 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
     private CircleBar circleBar;//進度條
     private TextView show_mileage,show_heat,want_steps;//顯示里程和熱量
     private ImageButton warm_btn;//跳轉按鈕
-    //下載天氣預報的相關信息
-
-    private String weather_url;//天氣接口
-    private String query_city_name;//城市名稱
     //展示進度、里程、熱量的相關參數
     private int custom_steps;//用戶的步數
     private int custom_step_length;//用戶的步長
