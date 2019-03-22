@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 
 import java.text.DecimalFormat;
+
+import com.example.lui_project.PlayActivity;
 import com.example.lui_project.circlebar.CircleBar;
 
 import com.example.lui_project.R;
@@ -173,6 +175,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
              @Override
              public void onClick(View v) {
                  Toast.makeText(context, "跳到熱身界面！", Toast.LENGTH_SHORT).show();
+                 startActivity(new Intent(getContext(), PlayActivity.class).putExtra("play_type", 0).putExtra("what",0));
 // Random random = new Random（）;
 // for（int i = 0; i <5; i ++）{
 // int a = random.nextInt（5）;
