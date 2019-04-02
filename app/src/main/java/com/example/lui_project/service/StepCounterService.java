@@ -59,7 +59,7 @@ public class StepCounterService extends Service {
         // 電源管理服務
         mPowerManager = (PowerManager) this
                 .getSystemService(Context.POWER_SERVICE);
-        mWakeLock = mPowerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "S");
+        mWakeLock = mPowerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myapp:mywakelocktag");
         //保持設備狀態
         mWakeLock.acquire();
 

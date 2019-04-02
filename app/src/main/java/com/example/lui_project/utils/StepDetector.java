@@ -86,12 +86,12 @@ public class StepDetector implements SensorEventListener {
 
                             if (isAlmostAsLargeAsPrevious && isPreviousLargeEnough && isNotContra) {
                                 mEnd = System.currentTimeMillis();
-// 通過判斷兩次運動間隔判斷是否走了一步
+                                // 通過判斷兩次運動間隔判斷是否走了一步
                                 if (mEnd - mStart > 500) {
                                     CURRENT_SETP++;
                                     mLastMatch = extType;
                                     mStart = mEnd;
-// Log.e("步數", CURRENT_SETP + "");
+                                    // Log.e("步數", CURRENT_SETP + "");
                                 }
                             } else {
                                 mLastMatch = -1;

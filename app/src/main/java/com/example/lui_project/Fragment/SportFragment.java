@@ -9,15 +9,25 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import java.text.DecimalFormat;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.lui_project.PlayActivity;
 import com.example.lui_project.circlebar.CircleBar;
 
 import com.example.lui_project.R;
@@ -26,6 +36,9 @@ import com.example.lui_project.utils.Constant;
 import com.example.lui_project.utils.SaveKeyValues;
 import com.example.lui_project.utils.StepDetector;
 
+import org.json.JSONObject;
+
+import static com.android.volley.Request.Method.GET;
 
 
 public class SportFragment extends Fragment{//此處直接繼承Fragment即可
@@ -127,7 +140,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
     }
 
     private void initValues(){
-
+        
         //2、獲取計算里程和熱量的相關參數-->默認步數：1000、步長：70cm、體重：50kg
         isStop = false;
         duration = 800;
@@ -151,6 +164,32 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         step_service = new Intent(getContext(),StepCounterService.class);
         getContext().startService(step_service);
     }
+    /**
+          * 下載數據
+          */
+    /**
+          * 下載數據
+          */
+    private void downLoadDataFromNet() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //下載天氣預報
+                String str = "api.openweathermap.org/data/2.5/weather?lat=22.3193&lon=114.1694&APPID=9d46b6edb580df502b7705b9d07b342c";
+
+                Message message = Message.obtain();
+                message.obj = str;
+                message.what = WEATHER_MESSAGE;
+
+                handler.sendMessage(message);
+            }
+        }).start();
+    }
+    /**
+     * 把下載的數值解析後賦值給相關的控件
+     * @param
+     */
+
 
     private void initView() {
         circleBar = (CircleBar) view.findViewById(R.id.show_progress);
@@ -173,6 +212,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
              @Override
              public void onClick(View v) {
                  Toast.makeText(context, "跳到熱身界面！", Toast.LENGTH_SHORT).show();
+                 startActivity(new Intent(getContext(), PlayActivity.class).putExtra("play_type", 0).putExtra("what",0));
 // Random random = new Random（）;
 // for（int i = 0; i <5; i ++）{
 // int a = random.nextInt（5）;
