@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/width_size_10"
-            android:text="@string/city_name"
+            android:text=""
             android:gravity="left"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_16"/>
@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="@string/temperature"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_18"/>
         <TextView
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/width_size_10"
-            android:text="@string/air_quality"
+            android:text=""
             android:gravity="right"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_16"
