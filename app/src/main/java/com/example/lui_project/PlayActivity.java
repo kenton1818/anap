@@ -156,7 +156,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
         }
 
         String message = getMyText(index);
-
+//        Log.e("說明","【"+ message +"】");
         play_message.setText(message);
     }
 

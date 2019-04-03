@@ -17,9 +17,7 @@ import com.example.lui_project.R;
 import com.example.lui_project.SettingHealthyHealthyActivity;
 import com.example.lui_project.Fragment.FindFragment;
 
-/**
- * Created by Administrator on 2016/6/6.
- */
+
 public class MyAdapter extends BaseAdapter {
 
     private LayoutInflater inflater; //Layout filler

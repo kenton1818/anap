@@ -28,6 +28,10 @@ import com.example.lui_project.PlayActivity;
 import com.example.lui_project.adapter.MyAdapter;
 import com.example.lui_project.db.DatasDao;
 import com.example.lui_project.Test_findActivity;
+import com.example.lui_project.service.ExecuteHealthyPlanService;
+import com.example.lui_project.utils.Constant;
+
+
 
 public class FindFragment extends Fragment {
     private View view;//界面的布局
@@ -82,6 +86,23 @@ public class FindFragment extends Fragment {
         });
         return view;
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == 2000){
+            DatasDao datasDao = new DatasDao(getContext());
+            Cursor cursor = datasDao.selectAll("plans");
+            if (cursor.getCount() == 1){
+                 // Open the execution plan service
+                Log.e("start service","service init");
+                getContext().startService(new Intent(getContext(), ExecuteHealthyPlanService.class).putExtra("code", Constant.START_PLAN));
+            }else{
+                Log.e("start service","start service");
+                Log.e("current mission", cursor.getCount() + "tasks");
+                getContext().startService(new Intent(getContext(), ExecuteHealthyPlanService.class).putExtra("code", Constant.CHANGE_PLAN));
+            }
+            cursor.close();
+        }
+    }
 
 }

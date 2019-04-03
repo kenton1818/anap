@@ -1,9 +1,6 @@
 package com.example.lui_project.entity;
 
-/**
- * planning class
- * Created by Administrator on 2016/6/8.
- */
+
 public class HealthyPlan {
 
     private int id_Num;
