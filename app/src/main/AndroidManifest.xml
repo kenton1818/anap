@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lui_project">
@@ -14,19 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name="com.example.lui_project.service.StepCounterService" />
+        <receiver android:name=".receiver.FunctionBroadcastReceiver">
+            <intent-filter>
+                <action android:name="mrkj.healthylife.RECORDED" />
+                <action android:name="mrkj.healthylife.SETALARM" />
+                <action android:name="mrkj.healthylife.PLAN" />
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".PlayActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".Test_findActivity"
-            android:screenOrientation="portrait" />
+        <service android:name=".service.ExecuteHealthyPlanService" />
         <activity
             android:name=".SettingHealthyHealthyActivity"
             android:screenOrientation="portrait" />
 
 
 
-        <activity android:name=".TestActivity">
+        <activity android:name=".Test_findActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,4 +38,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
