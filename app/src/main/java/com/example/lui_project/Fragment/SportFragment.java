@@ -32,6 +32,7 @@ import com.example.lui_project.circlebar.CircleBar;
 
 import com.example.lui_project.R;
 import com.example.lui_project.service.StepCounterService;
+import com.example.lui_project.service.GpsLocation;
 import com.example.lui_project.utils.Constant;
 import com.example.lui_project.utils.SaveKeyValues;
 import com.example.lui_project.utils.StepDetector;
@@ -56,6 +57,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
     private int custom_weight;//用戶的體重
     private Thread get_step_thread; // 定義線程對象
     private Intent step_service;//計步服務
+    private Intent gps_service;//計步服務
     private boolean isStop;//是否運行子線程
     private Double distance_values;// 路程：米
     private int steps_values;//步數
@@ -66,7 +68,10 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what){
-
+                case WEATHER_MESSAGE:
+                    Log.d("weather","weather_receive");
+                    setDownLoadMessageToView();
+                    break;
                 case STEP_PROGRESS://步數跟新後會調至這裡
                     //獲取計步的步數
                     steps_values = StepDetector.CURRENT_SETP;
@@ -108,8 +113,8 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
-                            ViewGroup container,
-                            Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sport, null);
         initView();//初始化控件
         initValues();//初始化數據
@@ -141,6 +146,10 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
 
     private void initValues(){
 
+
+        gps_service = new Intent(getContext(),GpsLocation.class);
+        getContext().startService(gps_service);
+
         //2、獲取計算里程和熱量的相關參數-->默認步數：1000、步長：70cm、體重：50kg
         isStop = false;
         duration = 800;
@@ -164,32 +173,71 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         step_service = new Intent(getContext(),StepCounterService.class);
         getContext().startService(step_service);
     }
-    /**
-          * 下載數據
-          */
-    /**
-          * 下載數據
-          */
-    private void downLoadDataFromNet() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //下載天氣預報
-                String str = "api.openweathermap.org/data/2.5/weather?lat=22.3193&lon=114.1694&APPID=9d46b6edb580df502b7705b9d07b342c";
 
-                Message message = Message.obtain();
-                message.obj = str;
-                message.what = WEATHER_MESSAGE;
 
-                handler.sendMessage(message);
-            }
-        }).start();
-    }
+
     /**
      * 把下載的數值解析後賦值給相關的控件
      * @param
      */
+    private void setDownLoadMessageToView() {
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //下載天氣預報
+                String url = "https://api.openweathermap.org/data/2.5/weather?lat="+GpsLocation.Latitude+"&lon="+GpsLocation.Longitude+"&APPID=9d46b6edb580df502b7705b9d07b342c";
+                Log.d("weather",url);
+                JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        JSONObject main_object = null;
+                        JSONObject sys = null;
+                        Log.d("weather","start2");
+                        try {
+
+                            main_object = response.getJSONObject("main");
+                            JSONArray array = response.getJSONArray("weather");
+                            JSONObject object = array.getJSONObject(0);
+                            String temp = String.valueOf(main_object.getDouble("temp"));
+                            String description = object.getString("description");
+                            sys = response.getJSONObject("sys");
+                            String city = String.valueOf(sys.getString("country"));
+
+                            city_name.setText(context.getString(R.string.city)+city);
+                            city_air_quality.setText(context.getString(R.string.quality) + description);
+
+                            double temp_int = Double.parseDouble(temp);
+                            double centi = (temp_int-32)/1.8000;
+                            centi = Math.round(centi);
+                            int i = (int)centi;
+                            city_temperature.setText(context.getString(R.string.temperature_hint) + i + getString(R.string.temperature_unit));
+                            Log.d("weather",city);
+                            Log.d("weather",description);
+                            Message message = Message.obtain();
+                            message.what = WEATHER_MESSAGE;
+                        } catch (JSONException e) {
+                            Log.d("Weather","error11");
+                            e.printStackTrace();
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("weather",error.getMessage());
+                    }
+                }
+                );
+                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                queue.add(jor);
+                Log.d("weather","error");
+            }
+        }).start();
+    }
 
     private void initView() {
         circleBar = (CircleBar) view.findViewById(R.id.show_progress);
@@ -209,10 +257,10 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         getServiceValue();
         //跳轉界面的按鈕
         warm_btn.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Toast.makeText(context, "跳到熱身界面！", Toast.LENGTH_SHORT).show();
-                 startActivity(new Intent(getContext(), PlayActivity.class).putExtra("play_type", 0).putExtra("what",0));
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "跳到熱身界面！", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), PlayActivity.class).putExtra("play_type", 0).putExtra("what",0));
 // Random random = new Random（）;
 // for（int i = 0; i <5; i ++）{
 // int a = random.nextInt（5）;
@@ -243,6 +291,9 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             Thread.sleep(1000);//每個一秒發送一條信息給UI線程
                             if (StepCounterService.FLAG) {
                                 handler.sendEmptyMessage(STEP_PROGRESS);// 通知主線程
+                            }
+                            if (GpsLocation.FLAG) {
+                                handler.sendEmptyMessage(WEATHER_MESSAGE);// 通知主線程
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
