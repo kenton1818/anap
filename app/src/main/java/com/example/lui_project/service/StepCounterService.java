@@ -21,10 +21,10 @@ import com.example.lui_project.utils.StepDetector;
 
 public class StepCounterService extends Service {
 
-    public static final String alarmSaveService = "mrkj.healthylife.SETALARM";
+    public static final String alarmSaveService = "SETALARM";
     private static final String TAG = "StepCounterService";
     public static Boolean FLAG = false;// 服務運行標誌
-
+    public String Flag = "0";
     private SensorManager mSensorManager;// 傳感器服務
     public StepDetector detector;// 傳感器監聽對象
 
@@ -37,7 +37,8 @@ public class StepCounterService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

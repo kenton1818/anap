@@ -27,7 +27,7 @@ import com.example.lui_project.utils.SaveKeyValues;
    * Services for implementing sports programs
    */
 public class ExecuteHealthyPlanService extends Service {
-    public static final String planSaveService = "mrkj.healthylife.PLAN";
+    public static final String planSaveService = "PLAN";
     //Used to operate the database
     private DatasDao datasDao;
     private Intent toBroadReciver;
@@ -81,7 +81,7 @@ public class ExecuteHealthyPlanService extends Service {
                     int count = cursor.getCount();
                     cursor.close();
                     if (count == 0){
-                        sendBroadcast(new Intent(this, FunctionBroadcastReceiver.class).setAction("mrkj.healthylife.PLAN").putExtra("mode", 3));
+                        sendBroadcast(new Intent(this, FunctionBroadcastReceiver.class).setAction("PLAN").putExtra("mode", 3));
                     }else {
 //                        compareAllData();
                         if (count > 1){
@@ -376,7 +376,7 @@ public class ExecuteHealthyPlanService extends Service {
                     Log.e ("Notification", "Close Service");
                     // Clear the data in the table
                     datasDao.clear("plans");
-                    sendBroadcast(new Intent(this, FunctionBroadcastReceiver.class).setAction("mrkj.healthylife.PLAN").putExtra("mode", 3));
+                    sendBroadcast(new Intent(this, FunctionBroadcastReceiver.class).setAction("PLAN").putExtra("mode", 3));
                 }
             }else{
                 Log.e ("Data to increase", "will be executed after setting the timing!");

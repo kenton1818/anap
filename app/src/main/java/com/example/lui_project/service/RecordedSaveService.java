@@ -24,13 +24,14 @@ import com.example.lui_project.utils.StepDetector;
  * record the service
  */
 public class RecordedSaveService extends Service {
-    public static final String cancelSaveService = "mrkj.healthylife.RECORDED";
+    public static final String cancelSaveService = "RECORDED";
     private DatasDao datasDao;
     public RecordedSaveService() {
     }
 
     @Override
     public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
