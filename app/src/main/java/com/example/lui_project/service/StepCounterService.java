@@ -3,9 +3,11 @@ package com.example.lui_project.service;
 
 
 
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -16,8 +18,11 @@ import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
 
 import com.example.lui_project.utils.StepDetector;
+import com.example.lui_project.receiver.FunctionBroadcastReceiver;
 
 public class StepCounterService extends Service {
 
@@ -64,7 +69,30 @@ public class StepCounterService extends Service {
         //保持設備狀態
         mWakeLock.acquire();
 
+        //设置一个定时服务
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 23);//时
+        calendar.set(Calendar.MINUTE, 59);//分
+        calendar.set(Calendar.SECOND, 0);//秒
+        calendar.set(Calendar.MILLISECOND, 0);//毫秒
+        intent = new Intent(this, FunctionBroadcastReceiver.class);//发送广播的意图
+        intent.setAction(alarmSaveService);//设置Action
+        pendingIntent = PendingIntent.getBroadcast(this, 1, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        //设置定时器
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
+    }
+
 
     @Override
     public void onDestroy() {
@@ -81,5 +109,16 @@ public class StepCounterService extends Service {
             //釋放喚醒資源
             mWakeLock.release();
         }
+    }
+    public static boolean isActivityRunning(Context mContext) {
+        ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
+        if (info != null && info.size() > 0) {
+            ComponentName component = info.get(0).topActivity;
+            if (component.getPackageName().equals(mContext.getPackageName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

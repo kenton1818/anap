@@ -17,16 +17,19 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lui_project.Fragment.SportFragment;
+import com.example.lui_project.service.GpsLocation;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 
 public class TestActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestPermission();
+        if (!checkPermission())
+        {requestPermission();
+        }
          setContentView(R.layout.activity_test);
         //添加SportFragment
         Bundle bundle = new Bundle();
@@ -47,14 +50,13 @@ public class TestActivity extends AppCompatActivity {
 
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
-        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
 
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+        return result == PackageManager.PERMISSION_GRANTED ;
     }
 
     private void requestPermission() {
 
-        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, CAMERA}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, ACCESS_NETWORK_STATE}, PERMISSION_REQUEST_CODE);
 
     }
 
@@ -65,14 +67,10 @@ public class TestActivity extends AppCompatActivity {
                 if (grantResults.length > 0) {
 
                     boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean cameraAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
-                    if (locationAccepted && cameraAccepted)
+                    if (locationAccepted)
                         Log.d("okok","okok");
                     else {
-
-                        Log.d("pkpk","pkpk");
-
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
                                 showMessageOKCancel("You need to allow access to both the permissions",
@@ -80,8 +78,9 @@ public class TestActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION, CAMERA},
+                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION},
                                                             PERMISSION_REQUEST_CODE);
+
                                                 }
                                             }
                                         });
