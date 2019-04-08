@@ -23,7 +23,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
     private int index;
     private int what;
     private boolean isNext;
-    private boolean isOff;//-->默认为false
+    private boolean isOff;//-->defaule off
     private TextView play_time;
     private TextView play_name;
     private TextView play_message;
@@ -31,7 +31,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
     private TextView play_more;
     private TextView play_back;
     private ImageView imageView;
-    private ImageView play_switch,play_next;//播放开关
+    private ImageView play_switch,play_next;//播放開關
     private AnimationDrawable animationDrawable;
     private static final String zeroStr = "00:00";
     private Button back_sport;
@@ -67,7 +67,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
                     }
                     if (values1 == 12){
                         play_switch.setImageResource(R.mipmap.mrkj_play_start);
-                        Toast.makeText(PlayActivity.this, "運動結束", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PlayActivity.this, PlayActivity.this.getString(R.string.Play_end), Toast.LENGTH_SHORT).show();
                     }
                     break;
                 default:
@@ -84,7 +84,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void setActivityTitle() {
         initTitle();
-        setTitle("運動", this);
+        setTitle(PlayActivity.this.getString(R.string.Play_Title), this);
         setMyBackGround(R.color.watm_background_gray);
         setTitleTextColor(R.color.theme_blue_two);
         setTitleLeftImage(R.mipmap.mrkj_back_blue);
@@ -143,11 +143,11 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
 
         setShow();
 
-        warm_up_exercise[0]="俯身啞鈴飛鳥";
-        warm_up_exercise[1]="俯臥撑";
-        warm_up_exercise[2]="滾輪支點俯臥撑";
-        warm_up_exercise[3]="平板卧推";
-        warm_up_exercise[4]="仰臥平板槓鈴肱三彎舉";
+        warm_up_exercise[0]=this.getString(R.string.warm_up_exercise0);
+        warm_up_exercise[1]=this.getString(R.string.warm_up_exercise1);
+        warm_up_exercise[2]=this.getString(R.string.warm_up_exercise2);
+        warm_up_exercise[3]=this.getString(R.string.warm_up_exercise3);
+        warm_up_exercise[4]=this.getString(R.string.warm_up_exercise4);
         play_name.setText(warm_up_exercise[index]);
         imageView.setImageResource(frameRes[index]);
         animationDrawable = (AnimationDrawable) imageView.getDrawable();
@@ -207,17 +207,17 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
                 isNext = true;
                 index++;
                 if (index > 4){
-                    Toast.makeText(this,"熱身完畢請點擊返回運動！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,PlayActivity.this.getString(R.string.Play_Msg), Toast.LENGTH_SHORT).show();
                 }else {
                     animationDrawable.stop();
                     isOff = false;
                     isClose = true;
                     handler.removeMessages(1);
-                    warm_up_exercise[0]="俯身啞鈴飛鳥";
-                    warm_up_exercise[1]="俯臥撑";
-                    warm_up_exercise[2]="滾輪支點俯臥撑";
-                    warm_up_exercise[3]="平板卧推";
-                    warm_up_exercise[4]="仰臥平板槓鈴肱三彎舉";
+                    warm_up_exercise[0]=this.getString(R.string.warm_up_exercise0);
+                    warm_up_exercise[1]=this.getString(R.string.warm_up_exercise1);
+                    warm_up_exercise[2]=this.getString(R.string.warm_up_exercise2);
+                    warm_up_exercise[3]=this.getString(R.string.warm_up_exercise3);
+                    warm_up_exercise[4]=this.getString(R.string.warm_up_exercise4);
                     play_name.setText(warm_up_exercise[index]);
                     imageView.setImageResource(frameRes[index]);
                     animationDrawable = (AnimationDrawable) imageView.getDrawable();

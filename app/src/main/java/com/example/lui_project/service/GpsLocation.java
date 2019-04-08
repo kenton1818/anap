@@ -15,7 +15,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import com.example.lui_project.TestActivity;
+import com.example.lui_project.Fragment.SportFragment;
 
 public class GpsLocation extends Service {
 
@@ -41,9 +41,13 @@ public class GpsLocation extends Service {
             @Override
             public void onLocationChanged(Location location) {
 
-                Longitude = location.getLongitude();
-                Latitude = location.getLatitude();
-                FLAG = true;
+                if (location != null)
+                {
+                    Longitude = location.getLongitude();
+                    Latitude = location.getLatitude();
+                    FLAG = true;
+                }
+
 
             }
 
@@ -77,6 +81,5 @@ public class GpsLocation extends Service {
         }
         gpslocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 100, listener);
     }
-
 
 }

@@ -3,6 +3,7 @@ package com.example.lui_project;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -61,11 +62,11 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
         //類型
         title = (TextView) findViewById(R.id.plan_type);
         type = intent.getIntExtra("type", 0);
-        warm_up_exercise[0]="俯身啞鈴飛鳥";
-        warm_up_exercise[1]="俯臥撑";
-        warm_up_exercise[2]="滾輪支點俯臥撑";
-        warm_up_exercise[3]="平板卧推";
-        warm_up_exercise[4]="仰臥平板槓鈴肱三彎舉";
+        warm_up_exercise[0]=this.getString(R.string.warm_up_exercise0);
+        warm_up_exercise[1]=this.getString(R.string.warm_up_exercise1);
+        warm_up_exercise[2]=this.getString(R.string.warm_up_exercise2);
+        warm_up_exercise[3]=this.getString(R.string.warm_up_exercise3);
+        warm_up_exercise[4]=this.getString(R.string.warm_up_exercise4);
         title_name = warm_up_exercise[type];
         title.setText(title_name);
         //時間
@@ -82,13 +83,13 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
                         start_year = year;
                         start_month = monthOfYear + 1;
                         start_day = dayOfMonth;
-                        start.setText("起始："+start_year + "-" + start_month + "-" + start_day);
+                        start.setText(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_start_point)+start_year + "-" + start_month + "-" + start_day);
                         break;
                     case 1://stop
                         stop_year = year;
                         stop_month = monthOfYear + 1;
                         stop_day = dayOfMonth;
-                        stop.setText("結束："+stop_year + "-" + stop_month + "-" + stop_day);
+                        stop.setText(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_end_point)+stop_year + "-" + stop_month + "-" + stop_day);
                         break;
                     default:
                         break;
@@ -118,12 +119,12 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
                 break;
             case R.id.plan_start://set開始日期
                 index = 0;
-                datePickerDialog.setTitle("set開始時間");
+                datePickerDialog.setTitle(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialogstart_title));
                 datePickerDialog.show();
                 break;
             case R.id.plan_stop://set結束時間
                 index = 1;
-                datePickerDialog.setTitle("set結束時間");
+                datePickerDialog.setTitle(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialogend_title));
                 datePickerDialog.show();
                 break;
             case R.id.set_clock://set 完成
@@ -163,11 +164,11 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
                 }
                 //set的時間不規範
                 if (DateUtils.getMillisecondValues(start_year,start_month,start_day) > DateUtils.getMillisecondValues(stop_year,stop_month,stop_day)){
-                    Toast.makeText(this,"開始時間不可以大於結束小時間!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_error1), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (DateUtils.getMillisecondValues((Integer) DateUtils.getDate().get("year"),(int) DateUtils.getDate().get("month"),(int) DateUtils.getDate().get("day")) > DateUtils.getMillisecondValues(stop_year,stop_month,stop_day)){
-                    Toast.makeText(this,"開始時間不可以大於結束小時間!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_error2), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 final ContentValues values = new ContentValues();
@@ -225,10 +226,10 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
 //// Log.e（“查詢出的相同數據ID”，selectID +“”）;
                     if (selectID != 0){
                         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                        dialog.setTitle("提示");
-                        dialog.setMessage("改時間點已被佔用，是否要覆蓋改時間點的運動計劃！");
+                        dialog.setTitle(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_settingError_Title));
+                        dialog.setMessage(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_settingError_Message));
                         final int finalSelectID = selectID;
-                        dialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        dialog.setPositiveButton(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_EnterButton), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 datasDao.deleteValue("plans","_id=?",new String[]{String.valueOf(finalSelectID)});
@@ -236,11 +237,11 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
                                 insertData(values);
                             }
                         });
-                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        dialog.setNegativeButton(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_CancelButton), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 isToSave = false;
-                                Toast.makeText(SettingHealthyHealthyActivity.this, "取消設置計劃！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SettingHealthyHealthyActivity.this, SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_CancelMsg), Toast.LENGTH_SHORT).show();
                             }
                         });
                         dialog.create();
@@ -265,11 +266,11 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
            // 向數據庫中插入數據
             long result = datasDao.insertValue("plans",values);
             if (result > 0){
-                Toast.makeText(this,"設置計劃成功!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_settingSuccess_Msg), Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK);
                 finish();
             }else {
-                Toast.makeText(this,"設置計劃失敗！請重新設置計劃！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_settingFalse_Msg), Toast.LENGTH_SHORT).show();
             }
         }
     }

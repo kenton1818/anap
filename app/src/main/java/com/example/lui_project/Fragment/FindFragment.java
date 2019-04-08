@@ -27,7 +27,6 @@ import java.util.Map;
 import com.example.lui_project.PlayActivity;
 import com.example.lui_project.adapter.MyAdapter;
 import com.example.lui_project.db.DatasDao;
-import com.example.lui_project.Test_findActivity;
 import com.example.lui_project.service.ExecuteHealthyPlanService;
 import com.example.lui_project.utils.Constant;
 
@@ -39,7 +38,7 @@ public class FindFragment extends Fragment {
     public static Bitmap[] bitmaps = new Bitmap[5];
     public static String[] warm_up_exercise = new String[5];
 
-    public static final String cishu = "1組6次";
+
     private ListView listView;
     private List<Map<String,Object>> list;
     @Override
@@ -57,30 +56,36 @@ public class FindFragment extends Fragment {
         if (isAdded()){
             list = new ArrayList<>();
             for (int i =0 ; i< 5 ; i++){
+
                 Map<String,Object> map =new HashMap<>();
-                warm_up_exercise[0]="俯身啞鈴飛鳥";
-                warm_up_exercise[1]="俯臥撑";
-                warm_up_exercise[2]="滾輪支點俯臥撑";
-                warm_up_exercise[3]="平板卧推";
-                warm_up_exercise[4]="仰臥平板槓鈴肱三彎舉";
-                map.put("tu",Test_findActivity.bitmaps[i]);
+                warm_up_exercise[0]=this.getString(R.string.warm_up_exercise0);
+                warm_up_exercise[1]=this.getString(R.string.warm_up_exercise1);
+                warm_up_exercise[2]=this.getString(R.string.warm_up_exercise2);
+                warm_up_exercise[3]=this.getString(R.string.warm_up_exercise3);
+                warm_up_exercise[4]=this.getString(R.string.warm_up_exercise4);
+                bitmaps[0] = BitmapFactory.decodeResource(this.getResources(), R.mipmap.sport_image1);
+                bitmaps[1] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image2);
+                bitmaps[2] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image3);
+                bitmaps[3] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image4);
+                bitmaps[4] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image5);
+                map.put("tu",bitmaps[i]);
                 map.put("xm",warm_up_exercise[i]);
-                map.put("cs",cishu);
-                map.put("tj","增加運動計畫");
+                map.put("cs", this.getString(R.string.find_training_time));
+                map.put("tj",context.getString(R.string.find_map_put));
                 list.add(map);
             }
             MyAdapter adapter = new MyAdapter(context,list,this);
             listView.setAdapter(adapter);
             DatasDao datasDao = new DatasDao(getContext());
             Cursor cursor = datasDao.selectAll("plans");
-            Log.e("當前運動任務數目",cursor.getCount() + "個");
+
         }
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context,"開始運動", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,context.getString(R.string.find_toast_start_sport), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(), PlayActivity.class).putExtra("play_type", position).putExtra("what",1));
             }
         });
