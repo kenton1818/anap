@@ -120,6 +120,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         initValues();//初始化數據
         setNature();//設置功能
         //提示
+
         if (StepDetector.CURRENT_SETP > custom_steps){
             Toast.makeText(getContext(),"您已達到目標步數,請適量運動！"
                     ,Toast.LENGTH_LONG).show();
@@ -162,13 +163,14 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
 // Log.e("體重", custom_weight + "公斤");
         //開啟計步服務
         int history_values = SaveKeyValues.getIntValues("sport_steps", 0);
-// Log.e("獲取存儲的值", "" + history_values);
+        Log.e("獲取存儲的值", "" + history_values);
         int service_values = StepDetector.CURRENT_SETP;
-// Log.e("關閉程序後的值",service_values+"");
-        boolean isLaunch = getArguments().getBoolean("is_launch",false);
-        if (isLaunch){
-            StepDetector.CURRENT_SETP = history_values + service_values;
-        }
+         Log.e("關閉程序後的值",service_values+"");
+
+         StepDetector.CURRENT_SETP = history_values + service_values;
+         Log.d("updata current", "Is update");
+
+
         //開啟計步服務
         step_service = new Intent(getContext(),StepCounterService.class);
         getContext().startService(step_service);
@@ -186,6 +188,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
             @Override
             public void run() {
                 //下載天氣預報
+
                 String url = "https://api.openweathermap.org/data/2.5/weather?lat="+GpsLocation.Latitude+"&lon="+GpsLocation.Longitude+"&APPID=9d46b6edb580df502b7705b9d07b342c";
                 Log.d("weather",url);
                 JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -218,7 +221,8 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             Message message = Message.obtain();
                             message.what = WEATHER_MESSAGE;
                         } catch (JSONException e) {
-                            Log.d("Weather","error11");
+                            Toast.makeText(getContext(),"weather cant receive, check your gps and network and re open the app"
+                                    ,Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
 
@@ -292,6 +296,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             if (StepCounterService.FLAG) {
                                 handler.sendEmptyMessage(STEP_PROGRESS);// 通知主線程
                             }
+
                             if (GpsLocation.FLAG) {
                                 handler.sendEmptyMessage(WEATHER_MESSAGE);// 通知主線程
                             }
