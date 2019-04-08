@@ -48,6 +48,7 @@ public class GpsLocation extends Service {
                     FLAG = true;
                 }
 
+
             }
 
             @Override
@@ -80,7 +81,5 @@ public class GpsLocation extends Service {
         }
         gpslocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 100, listener);
     }
-
-
 
 }

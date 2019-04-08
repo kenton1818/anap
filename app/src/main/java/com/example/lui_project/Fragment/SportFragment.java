@@ -302,6 +302,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             }
 
 
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
