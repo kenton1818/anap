@@ -1,6 +1,7 @@
 package com.example.lui_project.service;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +13,13 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import com.example.lui_project.Fragment.SportFragment;
 
 public class GpsLocation extends Service {
 
-    private LocationManager locationManager;
+    private LocationManager gpslocationManager;
     private LocationListener listener;
     public static Boolean FLAG = false;
     public static double Longitude = 0;
@@ -32,13 +35,19 @@ public class GpsLocation extends Service {
     @Override
     public void onCreate() {
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        gpslocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         listener = new LocationListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onLocationChanged(Location location) {
-                Longitude = location.getLongitude();
-                Latitude = location.getLatitude();
-                FLAG = true;
+
+                if (location != null)
+                {
+                    Longitude = location.getLongitude();
+                    Latitude = location.getLatitude();
+                    FLAG = true;
+                }
+
             }
 
             @Override
@@ -55,6 +64,7 @@ public class GpsLocation extends Service {
             public void onProviderDisabled(String s) {
 
                 Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         };
@@ -68,6 +78,9 @@ public class GpsLocation extends Service {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates("gps", 5000, 0, listener);
+        gpslocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 100, listener);
     }
+
+
+
 }

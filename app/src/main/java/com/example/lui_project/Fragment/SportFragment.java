@@ -43,8 +43,8 @@ import static com.android.volley.Request.Method.GET;
 
 
 public class SportFragment extends Fragment{//此處直接繼承Fragment即可
-    private static final int WEATHER_MESSAGE = 1;//顯示天氣信息
-    private static final int STEP_PROGRESS = 2;//顯示步數信息
+    public static final int WEATHER_MESSAGE = 1;//顯示天氣信息
+    public static final int STEP_PROGRESS = 2;//顯示步數信息
     private View view;//界面的佈局
     private TextView city_name,city_temperature,city_air_quality;//展示天氣相關控件
     //顯示精度的圓形進度條
@@ -68,10 +68,10 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what){
+
                 case WEATHER_MESSAGE:
-                    Log.d("weather","weather_receive");
                     setDownLoadMessageToView();
-                    break;
+
                 case STEP_PROGRESS://步數跟新後會調至這裡
                     //獲取計步的步數
                     steps_values = StepDetector.CURRENT_SETP;
@@ -120,8 +120,9 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         initValues();//初始化數據
         setNature();//設置功能
         //提示
+
         if (StepDetector.CURRENT_SETP > custom_steps){
-            Toast.makeText(getContext(),"您已達到目標步數,請適量運動！"
+            Toast.makeText(getContext(),SportFragment.this.getString(R.string.Sport_final_target)
                     ,Toast.LENGTH_LONG).show();
         }
         //提示彈窗
@@ -129,9 +130,9 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                 && (System.currentTimeMillis() > (SaveKeyValues.
                 getLongValues("show_hint",0)+Constant.DAY_FOR_24_HOURS))){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-            alertDialog.setTitle("提示");
-            alertDialog.setMessage("你有計劃沒有完成!");
-            alertDialog.setPositiveButton("點擊確定不再提示！",
+            alertDialog.setTitle(SportFragment.this.getString(R.string.Sport_Dialog_title));
+            alertDialog.setMessage(SportFragment.this.getString(R.string.Sport_Dialog_Msg));
+            alertDialog.setPositiveButton(SportFragment.this.getString(R.string.Sport_Dialog_Button1),
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -149,7 +150,8 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
 
         gps_service = new Intent(getContext(),GpsLocation.class);
         getContext().startService(gps_service);
-
+        downLoadDataFromNet();
+        GpsLocation.FLAG = true ;
         //2、獲取計算里程和熱量的相關參數-->默認步數：1000、步長：70cm、體重：50kg
         isStop = false;
         duration = 800;
@@ -162,13 +164,14 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
 // Log.e("體重", custom_weight + "公斤");
         //開啟計步服務
         int history_values = SaveKeyValues.getIntValues("sport_steps", 0);
-// Log.e("獲取存儲的值", "" + history_values);
+        Log.e("獲取存儲的值", "" + history_values);
         int service_values = StepDetector.CURRENT_SETP;
-// Log.e("關閉程序後的值",service_values+"");
-        boolean isLaunch = getArguments().getBoolean("is_launch",false);
-        if (isLaunch){
-            StepDetector.CURRENT_SETP = history_values + service_values;
-        }
+         Log.e("關閉程序後的值",service_values+"");
+
+         StepDetector.CURRENT_SETP = history_values + service_values;
+         Log.d("updata current", "Is update");
+
+
         //開啟計步服務
         step_service = new Intent(getContext(),StepCounterService.class);
         getContext().startService(step_service);
@@ -180,12 +183,13 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
      * 把下載的數值解析後賦值給相關的控件
      * @param
      */
-    private void setDownLoadMessageToView() {
+    public void setDownLoadMessageToView() {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 //下載天氣預報
+
                 String url = "https://api.openweathermap.org/data/2.5/weather?lat="+GpsLocation.Latitude+"&lon="+GpsLocation.Longitude+"&APPID=9d46b6edb580df502b7705b9d07b342c";
                 Log.d("weather",url);
                 JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -212,14 +216,18 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             double centi = (temp_int-32)/1.8000;
                             centi = Math.round(centi);
                             int i = (int)centi;
-                            city_temperature.setText(context.getString(R.string.temperature_hint) + i + getString(R.string.temperature_unit));
+                            if(isAdded()) {
+                                city_temperature.setText(context.getString(R.string.temperature_hint) + i + getString(R.string.temperature_unit));
+                            }
                             Log.d("weather",city);
                             Log.d("weather",description);
                             Message message = Message.obtain();
                             message.what = WEATHER_MESSAGE;
                         } catch (JSONException e) {
-                            Log.d("Weather","error11");
+                            Toast.makeText(getContext(),"weather cant receive, check your gps and network and re open the app"
+                                    ,Toast.LENGTH_LONG).show();
                             e.printStackTrace();
+
                         }
 
 
@@ -259,7 +267,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         warm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "跳到熱身界面！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, SportFragment.this.getString(R.string.Sport_warmUp_click), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(), PlayActivity.class).putExtra("play_type", 0).putExtra("what",0));
 // Random random = new Random（）;
 // for（int i = 0; i <5; i ++）{
@@ -292,9 +300,8 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             if (StepCounterService.FLAG) {
                                 handler.sendEmptyMessage(STEP_PROGRESS);// 通知主線程
                             }
-                            if (GpsLocation.FLAG) {
-                                handler.sendEmptyMessage(WEATHER_MESSAGE);// 通知主線程
-                            }
+
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -305,6 +312,30 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
             get_step_thread.start();
         }
 
+    }
+
+
+    /**
+     * 如果經偉度更新, 便重新下載最新天氣
+     * @param
+     */
+    private void downLoadDataFromNet() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true)
+                {
+                    if (GpsLocation.FLAG == true)
+                    {
+                        Message message = Message.obtain();
+                        message.what = WEATHER_MESSAGE;
+                        handler.sendMessage(message);
+                        GpsLocation.FLAG = false;
+                    }
+            }
+
+            }
+        }).start();
     }
 
     /**

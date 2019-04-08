@@ -54,7 +54,7 @@
         android:gravity="center"
         android:textColor="@color/theme_blue_two"
         android:textSize="@dimen/font_size_18"
-        android:text="Target"/>
+        android:text="@string/sport_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"

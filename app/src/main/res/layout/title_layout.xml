@@ -19,7 +19,7 @@
             android:layout_margin="@dimen/width_size_5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="title"
+            android:text="@string/title"
             android:gravity="center"
             android:layout_centerInParent="true"
             android:textStyle="bold"
