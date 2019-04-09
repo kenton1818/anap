@@ -91,7 +91,7 @@
     <string name = "Setting_plan_dialog_error1">開始時間不可以大於結束小時間!</string>
     <string name = "Setting_plan_dialog_error2">開始時間不可以大於結束小時間!</string>
     <string name = "Setting_plan_dialog_settingError_Title">提示</string>
-    <string name = "Setting_plan_dialog_settingError_Message">該時間點已被佔用，是否要覆蓋改時間點的運動計劃！!</string>
+    <string name = "Setting_plan_dialog_settingError_Message">該時間點已被佔用，是否要覆蓋改時間點的運動計劃！!</tring>
     <string name = "Setting_plan_dialog_EnterButton">確定</string>
     <string name = "Setting_plan_dialog_CancelButton">取消</string>
     <string name = "Setting_plan_dialog_CancelMsg">取消設置計劃！</string>
@@ -105,5 +105,4 @@
     <string name = "Sport_Dialog_Msg">你有計劃沒有完成</string>
     <string name = "Sport_Dialog_Button1">點擊確定不再提示</string>
     <string name = "Sport_warmUp_click">跳到熱身界面!</string>
-    <string name = "Function_exit_app">再按一次退出程序</string>
 </resources>

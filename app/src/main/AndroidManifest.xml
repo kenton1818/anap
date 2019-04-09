@@ -47,8 +47,7 @@
             android:screenOrientation="portrait" />
 
 
-        <activity android:name=".FunctionActivity">
-
+        <activity android:name=".Test_findActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

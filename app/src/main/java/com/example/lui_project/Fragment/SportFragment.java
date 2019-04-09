@@ -43,8 +43,8 @@ import static com.android.volley.Request.Method.GET;
 
 
 public class SportFragment extends Fragment{//此處直接繼承Fragment即可
-    public static final int WEATHER_MESSAGE = 1;//顯示天氣信息
-    public static final int STEP_PROGRESS = 2;//顯示步數信息
+    private static final int WEATHER_MESSAGE = 1;//顯示天氣信息
+    private static final int STEP_PROGRESS = 2;//顯示步數信息
     private View view;//界面的佈局
     private TextView city_name,city_temperature,city_air_quality;//展示天氣相關控件
     //顯示精度的圓形進度條
@@ -68,10 +68,10 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what){
-
                 case WEATHER_MESSAGE:
+                    Log.d("weather","weather_receive");
                     setDownLoadMessageToView();
-
+                    break;
                 case STEP_PROGRESS://步數跟新後會調至這裡
                     //獲取計步的步數
                     steps_values = StepDetector.CURRENT_SETP;
@@ -150,8 +150,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
 
         gps_service = new Intent(getContext(),GpsLocation.class);
         getContext().startService(gps_service);
-        downLoadDataFromNet();
-        GpsLocation.FLAG = true ;
+
         //2、獲取計算里程和熱量的相關參數-->默認步數：1000、步長：70cm、體重：50kg
         isStop = false;
         duration = 800;
@@ -183,7 +182,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
      * 把下載的數值解析後賦值給相關的控件
      * @param
      */
-    public void setDownLoadMessageToView() {
+    private void setDownLoadMessageToView() {
 
         new Thread(new Runnable() {
             @Override
@@ -216,9 +215,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             double centi = (temp_int-32)/1.8000;
                             centi = Math.round(centi);
                             int i = (int)centi;
-                            if(isAdded()) {
-                                city_temperature.setText(context.getString(R.string.temperature_hint) + i + getString(R.string.temperature_unit));
-                            }
+                            city_temperature.setText(context.getString(R.string.temperature_hint) + i + getString(R.string.temperature_unit));
                             Log.d("weather",city);
                             Log.d("weather",description);
                             Message message = Message.obtain();
@@ -227,7 +224,6 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                             Toast.makeText(getContext(),"weather cant receive, check your gps and network and re open the app"
                                     ,Toast.LENGTH_LONG).show();
                             e.printStackTrace();
-
                         }
 
 
@@ -301,8 +297,9 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                                 handler.sendEmptyMessage(STEP_PROGRESS);// 通知主線程
                             }
 
-
-
+                            if (GpsLocation.FLAG) {
+                                handler.sendEmptyMessage(WEATHER_MESSAGE);// 通知主線程
+                            }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -313,30 +310,6 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
             get_step_thread.start();
         }
 
-    }
-
-
-    /**
-     * 如果經偉度更新, 便重新下載最新天氣
-     * @param
-     */
-    private void downLoadDataFromNet() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true)
-                {
-                    if (GpsLocation.FLAG == true)
-                    {
-                        Message message = Message.obtain();
-                        message.what = WEATHER_MESSAGE;
-                        handler.sendMessage(message);
-                        GpsLocation.FLAG = false;
-                    }
-            }
-
-            }
-        }).start();
     }
 
     /**

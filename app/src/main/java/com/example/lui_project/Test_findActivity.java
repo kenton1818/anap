@@ -14,11 +14,11 @@ public class Test_findActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_test);
-        bitmaps[0] = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.sport_image1);
-        bitmaps[1] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.sport_image2);
-        bitmaps[2] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.sport_image3);
-        bitmaps[3] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.sport_image4);
-        bitmaps[4] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.sport_image5);
+        bitmaps[0] = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.mrkj_fushen1);
+        bitmaps[1] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.mrkj_fuwocheng1);
+        bitmaps[2] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.mrkj_gunlun1);
+        bitmaps[3] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.mrkj_wotui1);
+        bitmaps[4] = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.mrkj_sanwanju1);
         //添加SportFragment
         Bundle bundle = new Bundle();
         bundle.putBoolean("is_launch", false);
