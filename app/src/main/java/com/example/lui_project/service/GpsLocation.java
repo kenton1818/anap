@@ -15,7 +15,8 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import com.example.lui_project.TestActivity;
+import com.example.lui_project.Fragment.SportFragment;
+import com.example.lui_project.utils.SaveKeyValues;
 
 public class GpsLocation extends Service {
 
@@ -40,12 +41,16 @@ public class GpsLocation extends Service {
             @SuppressLint("MissingPermission")
             @Override
             public void onLocationChanged(Location location) {
+                Log.d("gps", "service update");
 
                 Longitude = location.getLongitude();
-                Latitude = location.getLatitude();
-                FLAG = true;
+                    Latitude = location.getLatitude();
+                    FLAG = true;
+
+
 
             }
+
 
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -77,6 +82,7 @@ public class GpsLocation extends Service {
         }
         gpslocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 100, listener);
     }
+
 
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,6 @@ import java.util.Map;
 import com.example.lui_project.PlayActivity;
 import com.example.lui_project.adapter.MyAdapter;
 import com.example.lui_project.db.DatasDao;
-import com.example.lui_project.Test_findActivity;
 import com.example.lui_project.service.ExecuteHealthyPlanService;
 import com.example.lui_project.utils.Constant;
 
@@ -37,6 +37,7 @@ public class FindFragment extends Fragment {
     private Context context;
     public static Bitmap[] bitmaps = new Bitmap[5];
     public static String[] warm_up_exercise = new String[5];
+
 
     private ListView listView;
     private List<Map<String,Object>> list;
@@ -62,7 +63,12 @@ public class FindFragment extends Fragment {
                 warm_up_exercise[2]=this.getString(R.string.warm_up_exercise2);
                 warm_up_exercise[3]=this.getString(R.string.warm_up_exercise3);
                 warm_up_exercise[4]=this.getString(R.string.warm_up_exercise4);
-                map.put("tu",Test_findActivity.bitmaps[i]);
+                bitmaps[0] = BitmapFactory.decodeResource(this.getResources(), R.mipmap.sport_image1);
+                bitmaps[1] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image2);
+                bitmaps[2] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image3);
+                bitmaps[3] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image4);
+                bitmaps[4] = BitmapFactory.decodeResource(this.getResources(),R.mipmap.sport_image5);
+                map.put("tu",bitmaps[i]);
                 map.put("xm",warm_up_exercise[i]);
                 map.put("cs", this.getString(R.string.find_training_time));
                 map.put("tj",context.getString(R.string.find_map_put));

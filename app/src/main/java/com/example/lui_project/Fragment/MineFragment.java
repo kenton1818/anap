@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -73,6 +75,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             datasDao = new DatasDao(getContext());
         }
         //顯示信息
+        showMessage();
 
         return view;
     }
@@ -256,6 +259,29 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             dateList[i] = calendar.get(Calendar.DAY_OF_MONTH);
         }
     }
+    /**
+     * 显示上部分和显示上部分
+     */
+    public void showMessage() {
+        //上
+        String name = SaveKeyValues.getStringValues("nick", "未填写");//获取名称
+        String image_path = SaveKeyValues.getStringValues("path", "path");//获取图片路径
+        //设置显示和功能
+        custom_name.setText(name);
+
+        Bitmap bitmap = BitmapFactory.decodeFile(image_path);
+        head_image.setImageBitmap(bitmap);
+
+        //中
+        int today_steps = SaveKeyValues.getIntValues("sport_steps", 0);
+        show_steps.setText(today_steps + "步");
+        //设置图表
+        //获取保存的数据
+        Cursor cursor = datasDao.selectAll("step");
+        int counts = cursor.getCount();
+        getDataValues(counts);
+    }
+
 
     /**
      * 返回
@@ -268,7 +294,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHANGE && resultCode == Activity.RESULT_OK) {
-
+            showMessage();
             Log.e("返回", "success");
         }
     }
