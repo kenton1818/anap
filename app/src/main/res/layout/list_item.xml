@@ -14,7 +14,7 @@
             android:id="@+id/image_show"
             android:layout_width="150dp"
             android:layout_height="120dp"
-            android:src="@mipmap/sport_image2"/>
+            android:src="@mipmap/mrkj_fuwocheng1"/>
         <LinearLayout
             android:layout_width="@dimen/width_size_0"
             android:layout_height="match_parent"
