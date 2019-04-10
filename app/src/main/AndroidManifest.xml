@@ -26,7 +26,7 @@
             android:enabled="true"
             android:exported="true"></service>
         <service android:name=".service.StepCounterService" />
-
+        <service android:name=".service.RecordedSaveService" />
         <receiver android:name=".receiver.FunctionBroadcastReceiver">
 
             <intent-filter>
