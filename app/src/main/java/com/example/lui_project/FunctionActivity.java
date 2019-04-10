@@ -66,6 +66,7 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
         SaveKeyValues.createSharePreferences(this);
         //如果這個值等於1就加載運動界面，等於2就加載發現界面
         load_values = SaveKeyValues.getIntValues("launch_which_fragment",0);
+        load_values = 1;
         Log.e("加載判斷值", load_values + "");
         //new fragment
         sportFragment = new SportFragment();

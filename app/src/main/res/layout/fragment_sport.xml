@@ -7,38 +7,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="92dp"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="@dimen/width_size_5">
+
         <TextView
             android:id="@+id/city_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="67dp"
             android:layout_marginLeft="@dimen/width_size_10"
-            android:text=""
-            android:gravity="left"
+            android:gravity="center|left"
+            android:text="@string/city_name"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_16"/>
+            android:textSize="@dimen/font_size_16" />
+
         <TextView
             android:id="@+id/temperature"
             android:layout_width="@dimen/width_size_0"
+            android:layout_height="92dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text=""
+            android:text="@string/temperature"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_18"/>
+            android:textSize="@dimen/font_size_18" />
+
         <TextView
             android:id="@+id/air_quality"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_marginRight="@dimen/width_size_10"
-            android:text=""
-            android:gravity="right"
+            android:background="@drawable/text_gray_background"
+            android:gravity="center|right"
+            android:text="@string/air_quality"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_16"
-            android:background="@drawable/text_gray_background"/>
+            android:textSize="@dimen/font_size_16" />
     </LinearLayout>
 
     <com.example.lui_project.circlebar.CircleBar

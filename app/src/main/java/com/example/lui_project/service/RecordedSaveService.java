@@ -72,6 +72,7 @@ public class RecordedSaveService extends Service {
         values.put("hot",heat_Str);
         values.put("length", distance_Str);
         long reBack = datasDao.insertValue("step",values);
+        Log.d("sql_step","saved");
         if (reBack > 0){
             SaveKeyValues.putIntValues("sport_steps", 0 );
             StepDetector.CURRENT_SETP = 0;

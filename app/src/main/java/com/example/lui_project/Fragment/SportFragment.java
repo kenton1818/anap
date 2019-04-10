@@ -163,11 +163,15 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
 // Log.e("體重", custom_weight + "公斤");
         //開啟計步服務
         int history_values = SaveKeyValues.getIntValues("sport_steps", 0);
-        Log.e("獲取存儲的值", "" + history_values);
-        //int service_values = StepDetector.CURRENT_SETP;
-        // Log.e("關閉程序後的值",service_values+"");
+        Log.e("獲取存儲的值1", "" + history_values);
+        int service_values = StepDetector.CURRENT_SETP;
+        Log.e("關閉程序後的值1",service_values+"");
+        boolean isLaunch = getArguments().getBoolean("is_launch",false);
+        if (isLaunch){
+            StepDetector.CURRENT_SETP = history_values + service_values;
+            Log.e("isLaunch","isLaunch");
+        }
 
-         StepDetector.CURRENT_SETP = history_values ;
         String weather_city = SaveKeyValues.getStringValues("weather_city","Loading...");
         int weather_tmp = SaveKeyValues.getIntValues("weather_tmp",000);
         String weather_description = SaveKeyValues.getStringValues("weather_description","Loading...");
@@ -248,8 +252,10 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                     }
                 }
                 );
-                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                queue.add(jor);
+                if(isAdded()) {
+                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    queue.add(jor);
+                }
                 Log.d("weather","error");
             }
         }).start();
@@ -370,5 +376,6 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
         get_step_thread = null;
         steps_values = 0;
         duration = 800;
+        Log.d("close activity", "Close");
     }
 }

@@ -45,12 +45,12 @@
     <string name="km"> 公里</string>
     <string name="cal"> 卡路里 </string>
     <string name="city">City: </string>
-    <string name="city_name">City: HongKong </string>
-    <string name="temperature">temperature: 28 ° C </string>
-    <string name="air_quality">air quality: good </string>
-    <string name="temperature_hint">Temperature: </string>
+    <string name="city_name">City: Loading... </string>
+    <string name="temperature">Temp: 00° C </string>
+    <string name="air_quality">Detail: Cloud </string>
+    <string name="temperature_hint">Temp: </string>
     <string name="temperature_unit">°C</string>
-    <string name="quality">air quality: </string>
+    <string name="quality">Detail: </string>
     <string name="sport_history">歷史記錄 </string>
     <string name="heathly">health record</string>
     <string name="change_image">Modify avatar</string>
