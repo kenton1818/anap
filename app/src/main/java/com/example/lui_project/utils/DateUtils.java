@@ -32,7 +32,7 @@ public class DateUtils {
 
 
     /**
-     * 获取时间的毫秒值
+     *獲取時間的毫秒值
      * @param hour
      * @param minute
      * @return
@@ -49,7 +49,7 @@ public class DateUtils {
     }
 
     /**
-     * 获取日期的毫秒值
+     * 獲取日期的毫秒值
      * @param year
      * @param month
      * @param day
@@ -64,18 +64,18 @@ public class DateUtils {
     }
 
     /**
-     * 返回当前时间的毫秒值
+     * 返回當前時間的毫秒值
      * @return
      */
     public static long getNowMillisecondValues(){
         return getMillisecondValues((int)getDate().get("hour"),(int)getDate().get("minute"));
     }
     /**
-     * 返回当前日期的毫秒值
+     *返回當前日期的毫秒值
      * @return
      */
     public static long getNowDateMillisecondValues(){
-//        Log.e("当前日期", getDate().get("year") + "-" +getDate().get("month")+ "-" + getDate().get("day"));
+//        Log.e("當前日期", getDate().get("year") + "-" +getDate().get("month")+ "-" + getDate().get("day"));
         return getMillisecondValues((int) getDate().get("year"), (int) getDate().get("month"),(int) getDate().get("day"));
     }
 

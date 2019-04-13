@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="mrkj.healthylife.activity.FunctionActivity">
+    tools:context="com.example.lui_project.FunctionActivity">
 
     <FrameLayout
         android:id="@+id/frag_home"
