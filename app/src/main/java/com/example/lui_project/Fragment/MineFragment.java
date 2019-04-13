@@ -22,6 +22,7 @@ import com.example.lui_project.R;
 import com.example.lui_project.circlebar.CircleImageView;
 import com.example.lui_project.db.DatasDao;
 import com.example.lui_project.utils.SaveKeyValues;
+import com.example.lui_project.FoodHotListActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,6 +53,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private DatasDao datasDao;//讀取數據工具
     private TextView show_steps;//顯示今日已走的步數
 
+    //下部分
+    private TextView food;//食物热量表
+    private EditText steps;//步數
+    private TextView sport_message;//運動信息
+    private TextView plan_btn;//計畫
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -77,6 +84,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         //顯示信息
         showMessage();
 
+        food = (TextView) view.findViewById(R.id.food_hot);
+        food.setOnClickListener(this);
+        want = (TextView) view.findViewById(R.id.want);
+        want.setText(this.getString(R.string.Mine_want_text1) + SaveKeyValues.getStringValues("plan_stop_date",this.getString(R.string.Mine_want_text2))+this.getString(R.string.Mine_want_text3)+SaveKeyValues.getIntValues("weight",0)+this.getString(R.string.Mine_want_text4));
+
+        sport_message = (TextView) view.findViewById(R.id.sport_btn);
+        sport_message.setOnClickListener(this);
+        steps = (EditText) view.findViewById(R.id.change_step);
+        steps.setText(SaveKeyValues.getIntValues("step_plan" , 6000) + "");
+        plan_btn = (TextView) view.findViewById(R.id.plan_btn);
+        plan_btn.setOnClickListener(this);
+
         return view;
     }
 
@@ -100,6 +119,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.plan_btn:
                 break;
             case R.id.food_hot:
+                startActivity(new Intent(context, FoodHotListActivity.class));
                 break;
             default:
                 break;
@@ -109,7 +129,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
 
     /**
-     * 绘制折线图
+     * 繪製折線圖
      * @param count
      */
     private void getDataValues(int count) {
@@ -135,13 +155,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             Axis axisx = new Axis();//X
             Axis axisy = new Axis();//Y
             axisx.setTextColor(Color.BLACK)
-                    .setName("日期")
+                    .setName(this.getString(R.string.Mine_draw_x))
                     .setValues(axisValues);
             axisy.setTextColor(Color.BLACK)
-                    .setName("步數")
+                    .setName(this.getString(R.string.Mine_draw_y))
                     .setHasLines(true)
                     .setMaxLabelChars(5);
-            //加點
+            // add dot
             list = new ArrayList<>();
             for (int i = 0; i < 6; i++) {
                 list.add(new PointValue(i, 0));
@@ -176,10 +196,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             Axis axisx = new Axis();
             Axis axisy = new Axis();
             axisx.setTextColor(Color.BLACK)
-                    .setName("日期")
+                    .setName(this.getString(R.string.Mine_draw_x))
                     .setValues(axisValues);
             axisy.setTextColor(Color.BLACK)
-                    .setName("步數")
+                    .setName(this.getString(R.string.Mine_draw_y))
                     .setHasLines(true)
                     .setMaxLabelChars(5);
             //set data point
@@ -225,10 +245,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             Axis axisx = new Axis();
             Axis axisy = new Axis();
             axisx.setTextColor(Color.BLACK)
-                    .setName("日期")
+                    .setName(this.getString(R.string.Mine_draw_x))
                     .setValues(axisValues);
             axisy.setTextColor(Color.BLACK)
-                    .setName("步數")
+                    .setName(this.getString(R.string.Mine_draw_y))
                     .setHasLines(true)
                     .setMaxLabelChars(5);
             list = new ArrayList<>();
@@ -260,13 +280,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         }
     }
     /**
-     * 显示上部分和显示上部分
+     * 顯示上部分和顯示上部分
      */
     public void showMessage() {
         //上
-        String name = SaveKeyValues.getStringValues("nick", "未填写");//获取名称
-        String image_path = SaveKeyValues.getStringValues("path", "path");//获取图片路径
-        //设置显示和功能
+        String name = SaveKeyValues.getStringValues("nick", "未填");//獲取名稱
+        String image_path = SaveKeyValues.getStringValues("path", "path");//獲取圖片路徑
+        // 設置顯示和功能
         custom_name.setText(name);
 
         Bitmap bitmap = BitmapFactory.decodeFile(image_path);
@@ -274,9 +294,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
         //中
         int today_steps = SaveKeyValues.getIntValues("sport_steps", 0);
-        show_steps.setText(today_steps + "步");
-        //设置图表
-        //获取保存的数据
+        show_steps.setText(today_steps+"");
+         //設置圖表
+        // 獲取保存的數據
         Cursor cursor = datasDao.selectAll("step");
         int counts = cursor.getCount();
         getDataValues(counts);

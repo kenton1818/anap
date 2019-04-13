@@ -18,8 +18,11 @@ import com.example.lui_project.base.BaseActivity;
 import com.example.lui_project.Fragment.FindFragment;
 import com.example.lui_project.Fragment.MineFragment;
 import com.example.lui_project.Fragment.SportFragment;
+import com.example.lui_project.utils.BringData;
 import com.example.lui_project.utils.Constant;
 import com.example.lui_project.utils.SaveKeyValues;
+
+import java.io.IOException;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
@@ -63,7 +66,18 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
         if (!checkPermission())
         {requestPermission();
         }
+
         SaveKeyValues.createSharePreferences(this);
+        int saveDateIndex = SaveKeyValues.getIntValues("date_index",0);
+        Log.e("數據庫數否被存入", "【" + saveDateIndex + "】");
+        if (saveDateIndex == 0){
+            try {
+                SaveKeyValues.putIntValues("date_index", 1);
+                BringData.getDataFromAssets(getApplicationContext());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         //如果這個值等於1就加載運動界面，等於2就加載發現界面
         load_values = SaveKeyValues.getIntValues("launch_which_fragment",0);
         load_values = 1;

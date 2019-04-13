@@ -69,20 +69,20 @@ public class StepCounterService extends Service {
         //保持設備狀態
         mWakeLock.acquire();
 
-        //设置一个定时服务
+        //設置一個定時服務
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 23);//时
+        calendar.set(Calendar.HOUR_OF_DAY, 23);//時
         calendar.set(Calendar.MINUTE, 59);//分
         calendar.set(Calendar.SECOND, 0);//秒
         calendar.set(Calendar.MILLISECOND, 0);//毫秒
-        intent = new Intent(this, FunctionBroadcastReceiver.class);//发送广播的意图
-        intent.setAction(alarmSaveService);//设置Action
+        intent = new Intent(this, FunctionBroadcastReceiver.class);//send notification
+        intent.setAction(alarmSaveService);//設Action
         pendingIntent = PendingIntent.getBroadcast(this, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        //设置定时器
+        //設置一個定時器
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }

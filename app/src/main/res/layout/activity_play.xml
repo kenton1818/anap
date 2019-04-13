@@ -49,7 +49,7 @@
                 android:layout_gravity="right"
                 android:drawableRight="@mipmap/mrkj_turn_right"
                 android:gravity="right"
-                android:text="運動說明"
+                android:text="@string/activity_play_sport_descript"
                 android:textColor="@color/theme_blue_two"
                 android:textSize="@dimen/font_size_16" />
 
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="運動記錄"
+                    android:text="@string/activity_play_sport_record"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size_16" />
 
@@ -114,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@null"
-                android:text="完成熱身"
+                android:text="@string/activity_play_sport_finish"
                 android:textSize="@dimen/font_size_20"
                 android:background="@drawable/btn_blue_selector"/>
         </LinearLayout>
@@ -134,7 +134,7 @@
                 android:layout_gravity="right"
                 android:drawableLeft="@mipmap/mrkj_turn_left"
                 android:gravity="right"
-                android:text="返回"
+                android:text="@string/activity_play_sport_back"
                 android:textColor="@color/theme_blue_two"
                 android:textSize="@dimen/font_size_16" />
             <TextView
