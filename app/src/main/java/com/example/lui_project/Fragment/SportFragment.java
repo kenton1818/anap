@@ -248,7 +248,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("weather",error.getMessage());
+                        Log.d("weather",error.getMessage()+"");
                     }
                 }
                 );
@@ -339,7 +339,7 @@ public class SportFragment extends Fragment{//此處直接繼承Fragment即可
             public void run() {
                 while(true)
                 {
-                    if (GpsLocation.FLAG == true)
+                    if (GpsLocation.FLAG==true)
                     {
                         Log.d("gps", "update");
                         Message message = Message.obtain();

@@ -10,11 +10,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+
 import com.example.lui_project.Fragment.SportFragment;
 import com.example.lui_project.utils.SaveKeyValues;
 
@@ -25,6 +29,7 @@ public class GpsLocation extends Service {
     public static Boolean FLAG = false;
     public static double Longitude = 0;
     public static double Latitude = 0;
+    Boolean unable = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -44,9 +49,8 @@ public class GpsLocation extends Service {
                 Log.d("gps", "service update");
 
                 Longitude = location.getLongitude();
-                    Latitude = location.getLatitude();
-                    FLAG = true;
-
+                Latitude = location.getLatitude();
+                FLAG = true;
 
 
             }
@@ -80,9 +84,17 @@ public class GpsLocation extends Service {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        gpslocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 100, listener);
+        Log.d("gps", "updating");
+        unable = true;
+        while (unable == true) {
+            Log.d("gps", "true");
+            gpslocationManager.requestLocationUpdates(gpslocationManager.NETWORK_PROVIDER, 0, 100, listener);
+            if (gpslocationManager != null) {
+                unable = false;
+                Log.d("gps", "false");
+            }
+            Log.d("gps", "done");
+        }
     }
-
-
 
 }

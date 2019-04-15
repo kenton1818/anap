@@ -31,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-      * 初始化標題
+      * init標題
       */
     public void initTitle(){
         title_center = (TextView) findViewById(R.id.titles);
@@ -56,23 +56,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         view.invalidate();
     }
     /**
-      * 初始化標題
+      * init標題
       */
     protected abstract void setActivityTitle();
     /**
-      * 初始化窗口
+      * init窗口
       */
     protected abstract void getLayoutToView();
     /**
-      * 設置初始化的值和變量
+      * 設置init的值和變量
       */
     protected abstract void initValues();
     /**
-      * 初始化控件
+      * init control view
       */
     protected abstract void initViews();
     /**
-      * 初始化控件的監聽
+      * init 監聽
       */
     protected abstract void setViewsListener();
     /**

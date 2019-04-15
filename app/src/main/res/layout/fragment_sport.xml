@@ -74,7 +74,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_size_18"
-            android:drawableLeft="@mipmap/mrkj_mileage"
+            android:drawableLeft="@mipmap/sport_mileage"
             android:text="@string/mileage"
             android:gravity="center"
             android:textColor="@color/black"/>
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/font_size_20"
             android:textSize="@dimen/font_size_18"
-            android:drawableLeft="@mipmap/mrkj_heat"
+            android:drawableLeft="@mipmap/sport_heat"
             android:text="@string/heat"
             android:gravity="center"
             android:textColor="@color/black"/>

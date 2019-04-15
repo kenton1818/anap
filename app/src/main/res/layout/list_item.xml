@@ -22,19 +22,19 @@
             android:orientation="vertical"
             android:gravity="center">
             <TextView
-                android:id="@+id/xiangmu"
+                android:id="@+id/planitem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="項目"
+                android:text="@string/list_item_title_text"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_size_18"
                 android:gravity="center"/>
             <TextView
-                android:id="@+id/cishu1"
+                android:id="@+id/planTime"
                 android:layout_marginTop="@dimen/width_size_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="次數"
+                android:text="@string/list_item_time_text"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_size_18"
                 android:gravity="center"/>
@@ -44,7 +44,7 @@
             android:layout_width="@dimen/width_size_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="增加運動計畫"
+            android:text="@string/list_item_increase_text"
             android:textColor="@color/theme_blue_one"
             android:textSize="@dimen/font_size_18"
             android:gravity="center"/>

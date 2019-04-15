@@ -59,8 +59,8 @@ public class MyAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.list_item,null);
             holder.imageView = (ImageView) convertView.findViewById(R.id.image_show);
-            holder.textView1 = (TextView) convertView.findViewById(R.id.xiangmu);
-            holder.textView2 = (TextView) convertView.findViewById(R.id.cishu1);
+            holder.textView1 = (TextView) convertView.findViewById(R.id.planitem);
+            holder.textView2 = (TextView) convertView.findViewById(R.id.planTime);
             holder.textView3 = (TextView) convertView.findViewById(R.id.add_plan);
             final int index = position;
             holder.textView3.setOnClickListener(new View.OnClickListener() {

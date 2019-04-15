@@ -27,7 +27,7 @@
                     android:layout_height="@dimen/width_size_80"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/width_size_20"
-                    android:src="@mipmap/mrkj_girl_blue"
+                    android:src="@mipmap/mine_girl_blue"
                     app:border_color="@android:color/transparent" />
 
                 <LinearLayout
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/width_size_20"
                         android:layout_marginRight="@dimen/width_size_20"
-                        android:text="目標"
+                        android:text="@string/fragement_mine_target2"
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_size_18" />
 
@@ -101,7 +101,7 @@
                         android:layout_marginRight="@dimen/width_size_20"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="體重"
+                        android:text="@string/fragement_mine_weight"
                         android:textColor="@color/red"
                         android:textSize="@dimen/font_size_16" />
                 </LinearLayout>
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/width_size_5"
-                    android:text="目標步數"
+                    android:text="@string/fragement_mine_target"
                     android:textColor="@color/theme_blue_one"
                     android:textSize="@dimen/font_size_18" />
 
@@ -186,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/width_size_5"
-                    android:text="步"
+                    android:text="@string/fragement_mine_step"
                     android:textColor="@color/theme_blue_one"
                     android:textSize="@dimen/font_size_20" />
             </LinearLayout>
@@ -197,12 +197,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/width_size_5"
                 android:background="@color/watm_background_gray"
-                android:drawableRight="@mipmap/mrkj_go_to"
+                android:drawableRight="@mipmap/sport_go_to"
                 android:paddingBottom="@dimen/width_size_5"
                 android:paddingLeft="@dimen/width_size_20"
                 android:paddingRight="@dimen/width_size_20"
                 android:paddingTop="@dimen/width_size_5"
-                android:text="食物熱量對照表"
+                android:text="@string/fragement_mine_hot_table"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_size_18" />
 
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/width_size_5"
                 android:background="@color/watm_background_gray"
-                android:drawableRight="@mipmap/mrkj_go_to"
+                android:drawableRight="@mipmap/sport_go_to"
                 android:paddingBottom="@dimen/width_size_5"
                 android:paddingLeft="@dimen/width_size_20"
                 android:paddingRight="@dimen/width_size_20"
@@ -227,12 +227,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/width_size_5"
                 android:background="@color/watm_background_gray"
-                android:drawableRight="@mipmap/mrkj_go_to"
+                android:drawableRight="@mipmap/sport_go_to"
                 android:paddingBottom="@dimen/width_size_5"
                 android:paddingLeft="@dimen/width_size_20"
                 android:paddingRight="@dimen/width_size_20"
                 android:paddingTop="@dimen/width_size_5"
-                android:text="我的計畫"
+                android:text="@string/fragement_mine_plan"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_size_18" />
 

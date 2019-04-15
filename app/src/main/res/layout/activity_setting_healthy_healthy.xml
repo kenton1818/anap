@@ -39,7 +39,7 @@
                 android:layout_marginBottom="@dimen/width_size_5"
                 android:layout_marginTop="@dimen/width_size_5"
                 android:gravity="center"
-                android:text="計畫類型"
+                android:text="@string/activity_setting_healthy_type"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_20"
                 android:textStyle="bold" />

@@ -142,6 +142,7 @@ public class SaveKeyValues {
         return float_value;
     }
 
+
     /**
       * 存入boolean類型的值
       * @param key
