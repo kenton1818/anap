@@ -126,6 +126,7 @@
     <string name = "fragement_mine_weight">體重</string>
     <string name = "fragement_mine_target2">目標</string>
     <string name = "group_item_title">類型</string>
+
     <string name="all">累積數據</string>
     <string name="find_day">記錄列表</string>
     <string name = "sportmsg_title">運動記錄</string>
@@ -191,5 +192,6 @@
     <string name="set_plan">制定計畫</string>
     <string name="walk">周圍睇下</string>
     <string name="make_a_plan">制定計畫</string>
+
 
 </resources>

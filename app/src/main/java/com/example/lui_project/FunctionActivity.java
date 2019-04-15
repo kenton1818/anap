@@ -70,6 +70,7 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
         if (!checkPermission()) {
             requestPermission();
         }
+
         //如果這個值等於1就加載運動界面，等於2就加載發現界面
         load_values = SaveKeyValues.getIntValues("launch_which_fragment", 0);
 

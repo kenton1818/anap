@@ -29,7 +29,9 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:layout_alignParentRight="true"
+
             android:drawableLeft="@mipmap/sport_hot"
+
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_18"/>
     </RelativeLayout>

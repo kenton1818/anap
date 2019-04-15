@@ -36,7 +36,9 @@ public class FoodHotListActivity extends BaseActivity {
         setTitle(this.getString(R.string.FoodhotTitle), this);
         setMyBackGround(R.color.watm_background_gray);
         setTitleTextColor(R.color.theme_blue_two);
+
         setTitleLeftImage(R.mipmap.sport_back_blue);
+
     }
 
     /**

@@ -51,7 +51,6 @@
             android:screenOrientation="portrait" />
         <service android:name=".service.ExecuteHealthyPlanService" />
 
-
         <activity
             android:name=".FoodHotListActivity"
             android:screenOrientation="portrait" />
