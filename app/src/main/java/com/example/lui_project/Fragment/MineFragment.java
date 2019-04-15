@@ -18,11 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.lui_project.MinePlanActivity;
 import com.example.lui_project.R;
 import com.example.lui_project.circlebar.CircleImageView;
 import com.example.lui_project.db.DatasDao;
 import com.example.lui_project.utils.SaveKeyValues;
 import com.example.lui_project.FoodHotListActivity;
+
+import com.example.lui_project.SportMessageActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,8 +118,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.change_person_values:
                 break;
             case R.id.sport_btn:
+                startActivity(new Intent(context, SportMessageActivity.class));
                 break;
             case R.id.plan_btn:
+                startActivity(new Intent(context, MinePlanActivity.class));
                 break;
             case R.id.food_hot:
                 startActivity(new Intent(context, FoodHotListActivity.class));
@@ -137,6 +142,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         //used to the x
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);//获取日期
+        Log.d("current day", day+"");
         //list of date
         List<PointValue> list;
         int[] dateArray = new int[7];

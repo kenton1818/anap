@@ -32,7 +32,7 @@ import static android.Manifest.permission.ACCESS_NETWORK_STATE;
  */
 public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
 
-    private static final int PERMISSION_REQUEST_CODE = 200;
+
     private long exitTime;//第一次單機退出鍵的時間
     private int load_values;//判斷加載
     // fragment的變量
@@ -42,6 +42,7 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
     private SportFragment sportFragment;//sport
     private FindFragment findFragment;//find
     private MineFragment mineFragment;//my
+    public static boolean take_a_look = false;
     /**
      * sitting title
      */
@@ -63,40 +64,38 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
      */
     @Override
     protected void initValues() {
-        if (!checkPermission())
-        {requestPermission();
+
+
+        //GPS permission
+        if (!checkPermission()) {
+            requestPermission();
         }
 
-        SaveKeyValues.createSharePreferences(this);
-        int saveDateIndex = SaveKeyValues.getIntValues("date_index",0);
-        Log.e("數據庫數否被存入", "【" + saveDateIndex + "】");
-        if (saveDateIndex == 0){
-            try {
-                SaveKeyValues.putIntValues("date_index", 1);
-                BringData.getDataFromAssets(getApplicationContext());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         //如果這個值等於1就加載運動界面，等於2就加載發現界面
-        load_values = SaveKeyValues.getIntValues("launch_which_fragment",0);
-        load_values = 1;
+        load_values = SaveKeyValues.getIntValues("launch_which_fragment", 0);
+
         Log.e("加載判斷值", load_values + "");
         //new fragment
         sportFragment = new SportFragment();
         findFragment = new FindFragment();
         mineFragment = new MineFragment();
         //init ui
-        if (load_values == Constant.TURN_MAIN){
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("is_launch",true);
-            sportFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().add(R.id.frag_home,sportFragment,Constant.SPORT_TAG).commit();
-        }else {
-            getSupportFragmentManager().beginTransaction().add(R.id.frag_home,findFragment,Constant.FIND_TAG).commit();
+        if (take_a_look == true) {
+            Log.d("take a look", "1");
+            getSupportFragmentManager().beginTransaction().add(R.id.frag_home,mineFragment,Constant.MINE_TAG).commit();
+        } else {
+
+            Log.d("take a look", "0");
+            if (load_values == Constant.TURN_MAIN) {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("is_launch", true);
+                sportFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().add(R.id.frag_home, sportFragment, Constant.SPORT_TAG).commit();
+            } else {
+                getSupportFragmentManager().beginTransaction().add(R.id.frag_home, findFragment, Constant.FIND_TAG).commit();
+            }
         }
     }
-
     /**
      * init
      */
@@ -182,54 +181,21 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
+
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
 
         return result == PackageManager.PERMISSION_GRANTED ;
     }
 
+
     private void requestPermission() {
 
-        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, ACCESS_NETWORK_STATE}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, ACCESS_NETWORK_STATE}, 200);
 
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                if (grantResults.length > 0) {
-
-                    boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if (locationAccepted)
-                        Log.d("okok","okok");
-                    else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
-                                showMessageOKCancel("You need to allow access to both the permissions",
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION},
-                                                            PERMISSION_REQUEST_CODE);
-
-                                                }
-                                            }
-                                        });
-                                return;
-                            }
-                        }
-
-                    }
-                }
-
-
-                break;
-        }
-    }
-
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(FunctionActivity.this)
@@ -238,5 +204,11 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
+    }
+
+    public void Take_look()
+    {
+        getSupportFragmentManager().beginTransaction().add(R.id.frag_home,mineFragment,"mine").commit();
+        take_a_look = false;
     }
 }

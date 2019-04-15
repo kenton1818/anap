@@ -66,7 +66,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
                         play_time.setText("00:" + values);
                     }
                     if (values1 == 12){
-                        play_switch.setImageResource(R.mipmap.mrkj_play_start);
+                        play_switch.setImageResource(R.mipmap.sport_play_start);
                         Toast.makeText(PlayActivity.this, PlayActivity.this.getString(R.string.Play_end), Toast.LENGTH_SHORT).show();
                     }
                     break;
@@ -87,7 +87,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
         setTitle(PlayActivity.this.getString(R.string.Play_Title), this);
         setMyBackGround(R.color.watm_background_gray);
         setTitleTextColor(R.color.theme_blue_two);
-        setTitleLeftImage(R.mipmap.mrkj_back_blue);
+        setTitleLeftImage(R.mipmap.sport_back_blue);
     }
 
     @Override
@@ -177,7 +177,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
                 if (!isOff){
                     animationDrawable.start();
                     values = 0;
-                    play_switch.setImageResource(R.mipmap.mrkj_play_stop);
+                    play_switch.setImageResource(R.mipmap.sport_play_stop);
                     isOff = true;
                     isClose = false;
                     runThread();
@@ -186,7 +186,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
                     animationDrawable.stop();
                     values = 0;
                     isOff = false;
-                    play_switch.setImageResource(R.mipmap.mrkj_play_start);
+                    play_switch.setImageResource(R.mipmap.sport_play_start);
                     isClose = true;
                     handler.removeMessages(1);
                 }
@@ -224,7 +224,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
                     if (animationDrawable.isRunning()){
                         animationDrawable.stop();
                     }
-                    play_switch.setImageResource(R.mipmap.mrkj_play_start);
+                    play_switch.setImageResource(R.mipmap.sport_play_start);
                     progressBar.setProgress(0);
                     play_time.setText("00:00");
 
@@ -269,7 +269,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
         if (animationDrawable.isRunning()){
             animationDrawable.stop();
             isOff = false;
-            play_switch.setImageResource(R.mipmap.mrkj_play_start);
+            play_switch.setImageResource(R.mipmap.sport_play_start);
         }
     }
 

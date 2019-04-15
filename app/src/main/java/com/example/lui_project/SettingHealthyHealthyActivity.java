@@ -193,7 +193,7 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
                 }
                 values.put("hint_time" , wantSaveTime);//10
 //                Log.e（“想要設置的時間”，wantSaveTime +“”）;
-                values.put("hint_str" , alarmhour + "点" + alarmminute + "分");
+                values.put("hint_str" , alarmhour + ":" + alarmminute );
                 values.put("hint_hour",alarmhour);
                 values.put("hint_minute",alarmminute);
                 //7。存入順序
@@ -274,6 +274,8 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
             }
         }
     }
+
+
     /**
      * 改時間
      *

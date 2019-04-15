@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
 
 
@@ -115,7 +114,7 @@ public class FunctionBroadcastReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentTitle("KeepFit");
         builder.setContentText(messages);
-        builder.setSmallIcon(R.mipmap.mrkj_do_sport);
+        builder.setSmallIcon(R.mipmap.sport_do_sport);
         builder.setDefaults(Notification.DEFAULT_ALL);
         builder.setAutoCancel(true);
         builder.setContentIntent(pendingIntent);

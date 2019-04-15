@@ -27,7 +27,7 @@
                     android:layout_height="@dimen/width_size_80"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/width_size_20"
-                    android:src="@mipmap/mrkj_girl_blue"
+                    android:src="@mipmap/mine_girl_blue"
                     app:border_color="@android:color/transparent" />
 
                 <LinearLayout
@@ -197,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/width_size_5"
                 android:background="@color/watm_background_gray"
-                android:drawableRight="@mipmap/mrkj_go_to"
+                android:drawableRight="@mipmap/sport_go_to"
                 android:paddingBottom="@dimen/width_size_5"
                 android:paddingLeft="@dimen/width_size_20"
                 android:paddingRight="@dimen/width_size_20"
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/width_size_5"
                 android:background="@color/watm_background_gray"
-                android:drawableRight="@mipmap/mrkj_go_to"
+                android:drawableRight="@mipmap/sport_go_to"
                 android:paddingBottom="@dimen/width_size_5"
                 android:paddingLeft="@dimen/width_size_20"
                 android:paddingRight="@dimen/width_size_20"
@@ -227,7 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/width_size_5"
                 android:background="@color/watm_background_gray"
-                android:drawableRight="@mipmap/mrkj_go_to"
+                android:drawableRight="@mipmap/sport_go_to"
                 android:paddingBottom="@dimen/width_size_5"
                 android:paddingLeft="@dimen/width_size_20"
                 android:paddingRight="@dimen/width_size_20"
