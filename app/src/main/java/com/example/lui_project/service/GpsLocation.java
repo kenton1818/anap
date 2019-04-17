@@ -24,7 +24,7 @@ import com.example.lui_project.utils.SaveKeyValues;
 
 public class GpsLocation extends Service {
 
-    private LocationManager gpslocationManager;
+    private LocationManager locationManager;
     private LocationListener listener;
     public static Boolean FLAG = false;
     public static double Longitude = 0;
@@ -41,20 +41,13 @@ public class GpsLocation extends Service {
     @Override
     public void onCreate() {
 
-        gpslocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         listener = new LocationListener() {
-            @SuppressLint("MissingPermission")
             @Override
             public void onLocationChanged(Location location) {
-                Log.d("gps", "service update");
-
-                Longitude = location.getLongitude();
                 Latitude = location.getLatitude();
+                Longitude = location.getLongitude();
                 FLAG = true;
-
-
             }
-
 
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -68,12 +61,15 @@ public class GpsLocation extends Service {
 
             @Override
             public void onProviderDisabled(String s) {
-
                 Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         };
+
+        locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+
+        //noinspection MissingPermission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -84,17 +80,13 @@ public class GpsLocation extends Service {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Log.d("gps", "updating");
-        unable = true;
-        while (unable == true) {
-            Log.d("gps", "true");
-            gpslocationManager.requestLocationUpdates(gpslocationManager.NETWORK_PROVIDER, 0, 100, listener);
-            if (gpslocationManager != null) {
-                unable = false;
-                Log.d("gps", "false");
-            }
-            Log.d("gps", "done");
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, listener);
         }
-    }
+        catch (Exception e)
+        {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,3000,9,listener);
+        }
 
+    }
 }

@@ -24,9 +24,7 @@ import com.example.lui_project.circlebar.CircleImageView;
 import com.example.lui_project.db.DatasDao;
 import com.example.lui_project.utils.SaveKeyValues;
 import com.example.lui_project.FoodHotListActivity;
-
 import com.example.lui_project.SportMessageActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -90,7 +88,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         food = (TextView) view.findViewById(R.id.food_hot);
         food.setOnClickListener(this);
         want = (TextView) view.findViewById(R.id.want);
-        want.setText(this.getString(R.string.Mine_want_text1) + SaveKeyValues.getStringValues("plan_stop_date",this.getString(R.string.Mine_want_text2))+this.getString(R.string.Mine_want_text3)+SaveKeyValues.getIntValues("weight",0)+this.getString(R.string.Mine_want_text4));
+        want.setText(this.getString(R.string.Mine_want_text1) + SaveKeyValues.getStringValues("plan_stop_date",this.getString(R.string.Mine_want_text2))+this.getString(R.string.Mine_want_text3)+SaveKeyValues.getIntValues("plan_want_weight_values",0)+this.getString(R.string.Mine_want_text4));
 
         sport_message = (TextView) view.findViewById(R.id.sport_btn);
         sport_message.setOnClickListener(this);

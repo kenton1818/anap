@@ -3,9 +3,7 @@
      <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
-    <string name="cm">CM</string>
-    <string name="plan_weight">Target Weight </string>
-       <string name="now_weight">Current Weight </string> 
+    <string name="cm">CM</string> 
     <string name="kg">kg </string>
     <string name="length">你的步距(一般是45cm到60cm)</string>
     <string name="steps">步</string>
@@ -18,14 +16,7 @@
     <string name="find_txt">Discover </string>
     <string name="heart_txt">Heart Rate </string>
     <string name="mine_txt">My</string>
-    <string name="target">Fitness Goal</string>
-    <string name="sport_title">步數目標</string>
-    <string name="finish">complete </string>
-    <string name="start_time">start time </string>
-    <string name="stop_time">end time </string>
-    <string name="set_start_time">Please set the start time </string>
-    <string name="set_stop_time">Please set the end time </string>
-    <string name="normal_weight_range">※ Your healthy weight range should be: </string>
+
     <string name="warm_up">WARM UP</string>
     <string name="mileage">公里</string>
     <string name="heat">大卡</string>
@@ -110,7 +101,7 @@
     <string name = "list_item_increase_text">增加運動計畫</string>
     <string name = "Mine_want_text1">在</string>
     <string name = "Mine_want_text2">xxxx年xx月x日</string>
-    <string name = "Mine_want_text3">體重【</string>
+    <string name = "Mine_want_text3">, 目標達到體重【</string>
     <string name = "Mine_want_text4">】公斤</string>
     <string name = "Mine_draw_x">日期</string>
     <string name = "Mine_draw_y">步數</string>
@@ -126,7 +117,6 @@
     <string name = "fragement_mine_weight">體重</string>
     <string name = "fragement_mine_target2">目標</string>
     <string name = "group_item_title">類型</string>
-
     <string name="all">累積數據</string>
     <string name="find_day">記錄列表</string>
     <string name = "sportmsg_title">運動記錄</string>
@@ -192,6 +182,19 @@
     <string name="set_plan">制定計畫</string>
     <string name="walk">周圍睇下</string>
     <string name="make_a_plan">制定計畫</string>
+        <string name="target">健身目標</string>
+    <string name="sport_title">步數目標</string>
+    <string name="finish">完成 </string>
+    <string name="start_time">開始日期 </string>
+    <string name="stop_time">結束日期 </string>
+    <string name="set_start_time">請設置開始日期</string>
+    <string name="set_stop_time">請設置結束日期 </string>
+    <string name="normal_weight_range">※ 你的目標體重應該設置為: </string>
+    <string name="welceom_plan_error1">請在建議範圍內設置目標體重！</string>
+    <string name="welceom_plan_error2">請設置合理時間,結束時間不得小於開始時間！</string>
+    <string name="welceom_plan_error3">請設置健康目標的開始和結束時間\n</string>
+    <string name="welceom_plan_error4">請在建議範圍內設置目標體重\n</string>
 
-
+    <string name="plan_weight">目標體重 </string>
+       <string name="now_weight">當前體重 </string>
 </resources>

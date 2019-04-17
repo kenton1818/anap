@@ -366,11 +366,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 finish();
                 break;
             case R.id.make://制定計畫
-                //saveMessageTwo();
-                //Toast.makeText(this,getString(R.string.set_plan), Toast.LENGTH_SHORT).show();
-                //Intent PlanningIntent = new Intent(this,PlanningActivity.class);
-                //startActivity(PlanningIntent);
-                //finish();
+                saveMessageTwo();
+                Toast.makeText(this,getString(R.string.set_plan), Toast.LENGTH_SHORT).show();
+                Intent PlanningIntent = new Intent(this,PlanningActivity.class);
+                startActivity(PlanningIntent);
+                finish();
                 break;
             default:
                 break;
@@ -388,7 +388,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         SaveKeyValues.putIntValues("birth_month",month);
         SaveKeyValues.putIntValues("birth_day",day);
         SaveKeyValues.putStringValues("height_str",height_str);//身高帶單位的文字
-        SaveKeyValues.putIntValues("height ", Integer.parseInt(height_str.substring(0,height_str.length()-2)));//身高數值
+        int heightValue = Integer.parseInt(height_str.substring(0,height_str.length()-2));
+        SaveKeyValues.putIntValues("height", heightValue);//身高數值
+        Log.d("Sace Heigh",SaveKeyValues.getIntValues("height",1000000)+"");
         SaveKeyValues.putIntValues("age",custom_age);//年齡
     }
     /**
@@ -529,7 +531,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     /**
-     * bide back
+     * hide back
      * @param keyCode
      * @param event
      * @return
