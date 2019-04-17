@@ -70,7 +70,6 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
         if (!checkPermission()) {
             requestPermission();
         }
-
         //如果這個值等於1就加載運動界面，等於2就加載發現界面
         load_values = SaveKeyValues.getIntValues("launch_which_fragment", 0);
 
@@ -83,6 +82,7 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
         if (take_a_look == true) {
             Log.d("take a look", "1");
             getSupportFragmentManager().beginTransaction().add(R.id.frag_home,mineFragment,Constant.MINE_TAG).commit();
+
         } else {
 
             Log.d("take a look", "0");
@@ -121,10 +121,16 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
      */
     @Override
     protected void setViewsFunction() {
+
         if (load_values == Constant.TURN_MAIN){
             sport_btn.setChecked(true);
         }else {
             find_btn.setChecked(true);
+        }
+        if (take_a_look==true)
+        {
+            mine_btn.setChecked(true);
+            take_a_look = false;
         }
     }
 

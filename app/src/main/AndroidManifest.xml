@@ -44,12 +44,16 @@
             android:name=".PlayActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".PlanningActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MinePlanActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UpdateActivity"
             android:screenOrientation="portrait" />
         <service android:name=".service.ExecuteHealthyPlanService" />
+
 
         <activity
             android:name=".FoodHotListActivity"
