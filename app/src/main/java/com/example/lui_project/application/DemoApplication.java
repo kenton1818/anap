@@ -23,9 +23,6 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //定位
-
-
         //sharedPreferences
         SaveKeyValues.createSharePreferences(this);
 

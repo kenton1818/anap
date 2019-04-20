@@ -96,6 +96,8 @@ public class CircleBar extends View
     canvas.drawText(this.mPercent + "%", this.mColorWheelRectangle.centerX() - this.mTextP.measureText(String.valueOf(this.mPercent) + "%") / 2.0F, this.mPercent_y, this.mTextP);
 
     canvas.drawText(this.stepnumbernow + "", this.mColorWheelRectangle.centerX() - this.mTextnum.measureText(String.valueOf(this.stepnumbernow)) / 2.0F, this.stepnumber_y, this.mTextnum);
+    canvas.drawText("Steps", this.mColorWheelRectangle.centerX() - this.mTextch.measureText(String.valueOf("步数")) / 2.0F, this.Text_y, this.mTextch);
+
   }
 
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)

@@ -1,6 +1,7 @@
 package com.example.lui_project;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 import com.example.lui_project.base.BaseActivity;
 import com.example.lui_project.utils.SaveKeyValues;
@@ -290,26 +292,60 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
         InputStream is = null;
         BufferedReader reader = null;
         StringBuffer buffer = new StringBuffer();
-        try {
-            is = getAssets().open("sport/sport"+type+".txt");
-            reader = new BufferedReader(new InputStreamReader(is));
-            String str;
-            while ((str = reader.readLine()) != null){
-                buffer.append(str);
-            }
-            String text = buffer.toString();
-            return text;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            if (is != null){
-                try {
-                    is.close();
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = PlayActivity.this.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            locale = PlayActivity.this.getResources().getConfiguration().locale;
+        }
+
+        String language = locale.getLanguage();
+        if (language ==  "en") {
+            try {
+                is = getAssets().open("sport/sport" + type + "_en.txt");
+                reader = new BufferedReader(new InputStreamReader(is));
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    buffer.append(str);
+                }
+                String text = buffer.toString();
+                return text;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+        }
+        else{
+            try {
+                is = getAssets().open("sport/sport" + type + ".txt");
+                reader = new BufferedReader(new InputStreamReader(is));
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    buffer.append(str);
+                }
+                String text = buffer.toString();
+                return text;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
         }
         return null;
     }

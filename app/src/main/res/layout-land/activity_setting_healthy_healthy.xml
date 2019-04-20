@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.lui_project.SettingHealthyHealthyActivity">
+    <!--android:drawableLeft="@drawable/abc_ic_ab_back_mtrl_am_alpha"-->
+    <TextView
+        android:id="@+id/to_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/width_size_5"
+        android:background="@drawable/shape_btn_back_background"
+
+        android:gravity="center"
+        android:text="@string/back"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_20"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/width_size_5"
+                android:layout_marginTop="@dimen/width_size_5"
+                android:layout_marginEnd="@dimen/width_size_5"
+                android:layout_marginBottom="@dimen/width_size_5"
+                android:background="@drawable/shape_btn_back_background"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/plan_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/width_size_5"
+                    android:layout_marginBottom="@dimen/width_size_5"
+                    android:gravity="center"
+                    android:text="@string/activity_setting_healthy_type"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_20"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/width_size_5"
+                    android:gravity="center"
+                    android:text="@string/dialog_title"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_20"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/width_size_2"
+                    android:layout_marginBottom="@dimen/width_size_5"
+                    android:background="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="131dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="253dp"
+                        android:layout_marginEnd="249dp"
+                        android:text="@string/set_tip_time"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_20"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TimePicker
+                        android:id="@+id/timePicker1"
+                        android:layout_width="417dp"
+                        android:layout_height="match_parent" />
+
+                    <RelativeLayout
+                        android:layout_width="215dp"
+                        android:layout_height="261dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/plan_stop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="90dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginLeft="@dimen/width_size_10"
+                            android:layout_marginTop="9dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_red2_selector"
+                            android:gravity="center"
+                            android:minHeight="@null"
+                            android:text="@string/end_date"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_size_20"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/set_clock"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_above="@+id/plan_stop"
+                            android:layout_below="@+id/plan_start"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="-2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_red_selector"
+                            android:minHeight="@null"
+                            android:text="@string/set_plan"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_size_20"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/plan_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="90dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginRight="@dimen/width_size_10"
+                            android:layout_marginBottom="@dimen/width_size_3"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_red2_selector"
+                            android:gravity="center"
+                            android:minHeight="@null"
+                            android:text="@string/start_date"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_size_20"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

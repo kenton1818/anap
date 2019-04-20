@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CompileDetailsActivity">
+    <!-- 修改头像 -->
+    <!-- 修改nick name -->
+    <!-- 修改性别 -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include layout="@layout/title_layout" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width_size_10"
+                android:background="@drawable/gray_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.lui_project.circlebar.CircleImageView
+                    android:id="@+id/head_pic"
+                    android:layout_width="@dimen/width_size_80"
+                    android:layout_height="@dimen/width_size_80"
+                    android:layout_margin="@dimen/width_size_5"
+                    android:src="@mipmap/mine_girl_blue"
+                    app:border_color="@android:color/transparent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width_size_10"
+                android:background="@drawable/gray_background"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/width_size_5"
+                    android:text="@string/change_nick"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <EditText
+                    android:id="@+id/change_nick"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/width_size_5"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:maxLength="6"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width_size_10"
+                android:background="@drawable/gray_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/width_size_5"
+                    android:text="@string/change_gender"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <RadioGroup
+                    android:id="@+id/change_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/width_size_5"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/change_boy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/boy"
+                        android:textColor="@color/theme_blue_one"
+                        android:textSize="@dimen/font_size_20" />
+
+                    <RadioButton
+                        android:id="@+id/change_girl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/width_size_10"
+                        android:checked="false"
+                        android:text="@string/girl"
+                        android:textColor="@color/theme_blue_one"
+                        android:textSize="@dimen/font_size_20" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width_size_10"
+                android:background="@drawable/gray_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/width_size_5"
+                    android:text="@string/change_date"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <TextView
+                    android:id="@+id/change_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/width_size_5"
+                    android:gravity="right"
+                    android:text="@string/default_date"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width_size_10"
+                android:background="@drawable/gray_background"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/width_size_5"
+                    android:text="@string/change_height"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <EditText
+                    android:id="@+id/change_height"
+                    android:layout_width="@dimen/width_size_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/width_size_5"
+                    android:text="@string/cm"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width_size_10"
+                android:background="@drawable/gray_background"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/width_size_5"
+                    android:text="@string/change_length"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <EditText
+                    android:id="@+id/change_length"
+                    android:layout_width="@dimen/width_size_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/width_size_5"
+                    android:text="@string/cm"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width_size_10"
+                android:layout_marginBottom="@dimen/width_size_10"
+                android:background="@drawable/gray_background"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/width_size_5"
+                    android:text="@string/change_weight"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <EditText
+                    android:id="@+id/change_weight"
+                    android:layout_width="@dimen/width_size_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/width_size_5"
+                    android:text="@string/kg"
+                    android:textColor="@color/theme_blue_one"
+                    android:textSize="@dimen/font_size_20" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/width_size_0"
+                android:layout_weight="1">
+
+
+                <Button
+                    android:id="@+id/change_ok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_blue_selector"
+                    android:text="@string/update"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_20" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

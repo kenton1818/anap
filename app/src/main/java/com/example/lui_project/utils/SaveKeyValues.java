@@ -10,7 +10,7 @@ public class SaveKeyValues {
     public static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     /**
-      * 初始化SharedPreferences
+      * init SharedPreferences
       * @param context
       */
     public static void createSharePreferences(Context context){
@@ -21,7 +21,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 判斷SharedPreferences是否被創建
+      * Determine if SharedPreferences is created
       * @return
       */
     public static boolean isUnCreate(){
@@ -32,7 +32,7 @@ public class SaveKeyValues {
         return result;
     }
     /**
-      * 存入String類型的值
+      * save string
       * @param key
       * @param values
       * @return
@@ -46,7 +46,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 取出String類型的值
+      * get string
       * @param key
       * @param defValue
       * @return
@@ -60,7 +60,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 存入int類型的值
+      * save int
       * @param key
       * @param values
       * @return
@@ -74,7 +74,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 取出int類型的值
+      * get int
       * @param key
       * @param defValue
       * @return
@@ -88,7 +88,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 存入long類型的值
+      * save long
       * @param key
       * @param values
       * @return
@@ -102,7 +102,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 取出long類型的值
+      * get long
       * @param key
       * @param defValue
       * @return
@@ -115,7 +115,7 @@ public class SaveKeyValues {
         return long_value;
     }
     /**
-      * 存入float類型的值
+      * save float
       * @param key
       * @param values
       * @return
@@ -129,7 +129,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 取出float類型的值
+      * get float
       * @param key
       * @param defValue
       * @return
@@ -144,7 +144,7 @@ public class SaveKeyValues {
 
 
     /**
-      * 存入boolean類型的值
+      * Store the value of the boolean type
       * @param key
       * @param values
       * @return
@@ -158,7 +158,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 取出boolean類型的值
+      * Take out the value of the boolean type
       * @param key
       * @param defValue
       * @return
@@ -172,7 +172,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 清空數據
+      * Clear data
       */
     public static boolean deleteAllValues(){
         if (isUnCreate()){
@@ -183,7 +183,7 @@ public class SaveKeyValues {
     }
 
     /**
-      * 刪除指定數據
+      * Delete specified data
       * @param key
       * @return
       */

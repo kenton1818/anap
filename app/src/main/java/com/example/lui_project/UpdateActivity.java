@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -72,6 +73,12 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                         change_year = year;
                         change_month = monthOfYear + 1;
                         change_day = dayOfMonth;
+                        Log.d("change_year",change_year+"");
+                        Log.d("change_month",change_month+"");
+                        Log.d("change_day",change_day+"");
+                        Log.d("want to change" , DateUtils.getMillisecondValues(year,monthOfYear,dayOfMonth)+"");
+                        Log.d("now" , DateUtils.getNowDateMillisecondValues()+"");
+
                         if(DateUtils.getNowDateMillisecondValues() > DateUtils.getMillisecondValues(year,monthOfYear,dayOfMonth)){
                             change_stop_date.setText(UpdateActivity.this.getString(R.string.minePlan_update_error));
                             change_stop_date.setTextColor(Color.parseColor("#ff0000"));
@@ -97,8 +104,13 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                 while (cursor.moveToNext()){
                     int get_hour = cursor.getInt(cursor.getColumnIndex("hint_hour"));
                     int get_minute = cursor.getInt(cursor.getColumnIndex("hint_minute"));
-                    if (DateUtils.getMillisecondValues(get_hour,get_minute) == DateUtils.getMillisecondValues(hour,minute)){
+                    Log.d("get_hour",get_hour+"");
+                    Log.d("get_minute",get_minute+"");
+                    if (DateUtils.getMillisecondValues(get_hour,get_minute) == DateUtils.getMillisecondValues(hour,minute)){;
+                        Log.d("get_hour",get_hour+"");
+                        Log.d("get_minute",get_minute+"");
                         Toast.makeText(UpdateActivity.this,UpdateActivity.this.getString(R.string.minePlan_update_error2), Toast.LENGTH_SHORT).show();
+                        Log.d("update","ERROR");
                         up = false;
                         break;
                     }

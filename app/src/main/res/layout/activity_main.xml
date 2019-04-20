@@ -5,7 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <include layout="@layout/title_layout" android:id="@+id/title_chunk"/>
+
+    <include
+        android:id="@+id/title_chunk"
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
     <!-- 個人信息1/2佈局 用於設置性別、暱稱、生日、身高 -->
     <LinearLayout
         android:id="@+id/personal_information_page_one"

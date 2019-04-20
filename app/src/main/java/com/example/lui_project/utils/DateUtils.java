@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-/**
- * Created by Administrator on 2016/6/3.
- */
 public class DateUtils {
     /**
-     * 获取日期
+     * get date
      * @return
      */
     public static Map<String,Object> getDate(){
@@ -32,7 +29,7 @@ public class DateUtils {
 
 
     /**
-     *獲取時間的毫秒值
+     *Get the millisecond value of the time
      * @param hour
      * @param minute
      * @return
@@ -49,7 +46,7 @@ public class DateUtils {
     }
 
     /**
-     * 獲取日期的毫秒值
+     * Get the millisecond value of the date
      * @param year
      * @param month
      * @param day
@@ -64,19 +61,19 @@ public class DateUtils {
     }
 
     /**
-     * 返回當前時間的毫秒值
+     * Returns the millisecond value of the current time
      * @return
      */
     public static long getNowMillisecondValues(){
         return getMillisecondValues((int)getDate().get("hour"),(int)getDate().get("minute"));
     }
     /**
-     *返回當前日期的毫秒值
+     *Returns the millisecond value of the current date
      * @return
      */
     public static long getNowDateMillisecondValues(){
 //        Log.e("當前日期", getDate().get("year") + "-" +getDate().get("month")+ "-" + getDate().get("day"));
-        return getMillisecondValues((int) getDate().get("year"), (int) getDate().get("month"),(int) getDate().get("day"));
+        return getMillisecondValues((int) getDate().get("year"), (int) getDate().get("month")-1,(int) getDate().get("day"));
     }
 
 }

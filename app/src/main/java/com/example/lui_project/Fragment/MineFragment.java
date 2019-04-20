@@ -17,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.lui_project.CompileDetailsActivity;
 import com.example.lui_project.MinePlanActivity;
 import com.example.lui_project.R;
 import com.example.lui_project.circlebar.CircleImageView;
@@ -40,25 +42,25 @@ import lecho.lib.hellocharts.view.LineChartView;
 
 public class MineFragment extends Fragment implements View.OnClickListener {
     private static final int CHANGE = 200;
-    private View view;//界面的佈局
+    private View view;//layout
     private Context context;
-    //上半部分
-    private CircleImageView head_image;//顯示頭像
-    private ImageButton change_values;//更改信息按鈕
-    private TextView custom_name;//用戶名稱
+    //upper half
+    private CircleImageView head_image;//icon
+    private ImageButton change_values;//Change info button
+    private TextView custom_name;//use name
     private TextView want;
-    //中間部分
-    private LineChartView lineChartView;//統計圖
-    private LineChartData data;//數據集
-    private float[] points = new float[7];//折線點的數組
-    private DatasDao datasDao;//讀取數據工具
-    private TextView show_steps;//顯示今日已走的步數
+    //Middle part
+    private LineChartView lineChartView;//summary graph
+    private LineChartData data;//data set
+    private float[] points = new float[7];//Array of polyline points
+    private DatasDao datasDao;//Read data tool
+    private TextView show_steps;//Show the number of steps taken today
 
-    //下部分
-    private TextView food;//食物热量表
-    private EditText steps;//步數
-    private TextView sport_message;//運動信息
-    private TextView plan_btn;//計畫
+    //the next part
+    private TextView food;//Food energy meter
+    private EditText steps;//step
+    private TextView sport_message;//Motion information
+    private TextView plan_btn;//plan
 
     @Override
     public void onAttach(Context context) {
@@ -70,19 +72,19 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mine, null);
-        //1、第一部分顯示頭像、暱稱
+        //1, the first part shows the avatar, nickname
         head_image = (CircleImageView) view.findViewById(R.id.head_pic);
         custom_name = (TextView) view.findViewById(R.id.show_name);
         change_values = (ImageButton) view.findViewById(R.id.change_person_values);
-        //點擊跳轉到編輯個人信息界面
+        //Click to jump to the edit personal information interface
         change_values.setOnClickListener(this);
-        //2、第二部分顯示當日的步數和歷史統計圖
+        //2、The second part shows the number of steps and historical charts of the day.
         show_steps = (TextView) view.findViewById(R.id.show_steps);
         lineChartView = (LineChartView) view.findViewById(R.id.step_chart);
         if (isAdded()) {
             datasDao = new DatasDao(getContext());
         }
-        //顯示信息
+        //show message
         showMessage();
 
         food = (TextView) view.findViewById(R.id.food_hot);
@@ -100,10 +102,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        if (!"".equals(steps.getText().toString())){
+            SaveKeyValues.putIntValues("step_plan",Integer.parseInt(steps.getText().toString()));
+        }else {
+            SaveKeyValues.putIntValues("step_plan",6000);
+        }
     }
 
     /**
@@ -114,6 +121,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.change_person_values:
+                startActivityForResult(new Intent(context, CompileDetailsActivity.class), CHANGE);
+                Toast.makeText(context, getString(R.string.Modify_information), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sport_btn:
                 startActivity(new Intent(context, SportMessageActivity.class));
@@ -132,14 +141,14 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
 
     /**
-     * 繪製折線圖
+     * Draw a line chart
      * @param count
      */
     private void getDataValues(int count) {
 
         //used to the x
         Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);//获取日期
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
         Log.d("current day", day+"");
         //list of date
         List<PointValue> list;
@@ -171,9 +180,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 list.add(new PointValue(i, 0));
             }
             list.add(new PointValue(6, SaveKeyValues.getIntValues("sport_steps", 0)));
-            //設置折線圖的集合
+            //Set up a collection of line charts
             List<Line> lines = new ArrayList<>();
-            //添加折線並設置折線
+            //Add a polyline and set a polyline
             Line line = new Line(list)
                     .setColor(Color.parseColor("#4592F3"))
                     .setCubic(false)
@@ -182,7 +191,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             line.setHasLabels(true);
             line.setHasPoints(true);
             lines.add(line);
-            //顯示折線圖
+            //Display line chart
             data = new LineChartData();
             data.setLines(lines);
             data.setAxisYLeft(axisy);
@@ -213,7 +222,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     list.add(new PointValue(i, 0));
                 }
             }
-            //獲取游標用來檢索數據
+            //Get cursor to retrieve data
             Cursor cursor = datasDao.selectAll("step");
             int i = count;
             while (cursor.moveToNext()){
@@ -221,7 +230,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 list.add(new PointValue(6 - (i--), a));
             }
             cursor.close();
-            //加入當天數據
+            //Join current data
             list.add(new PointValue(6, SaveKeyValues.getIntValues("sport_steps", 0)));
             List<Line> lines = new ArrayList<>();
             Line line = new Line(list)
@@ -272,7 +281,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * 獲取今天之後六天的日期
+     * Get the date six days after today
      *
      * @param dateList
      */
@@ -284,23 +293,33 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         }
     }
     /**
-     * 顯示上部分和顯示上部分
+     * Show upper part and display upper part
      */
     public void showMessage() {
-        //上
-        String name = SaveKeyValues.getStringValues("nick", "未填");//獲取名稱
-        String image_path = SaveKeyValues.getStringValues("path", "path");//獲取圖片路徑
-        // 設置顯示和功能
+        //top side
+        String name = SaveKeyValues.getStringValues("nick", "未填");//Get the name
+        String gender = SaveKeyValues.getStringValues("gender", "M");//Get image path
+        // Set display and function
+        Log.d("sex!!!",gender+"");
         custom_name.setText(name);
+        if (gender == getResources().getString(R.string.boy))
+        {
+            Log.d("sex!!!","set boy");
+            Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.mipmap.welcome_boy_blue);
+            head_image.setImageBitmap(bitmap);
+        }
+        else
+        {
+            Log.d("sex!!!","set girl");
+            Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.mipmap.welcome_girl_blue);
+            head_image.setImageBitmap(bitmap);
+        }
 
-        Bitmap bitmap = BitmapFactory.decodeFile(image_path);
-        head_image.setImageBitmap(bitmap);
-
-        //中
+        //mid
         int today_steps = SaveKeyValues.getIntValues("sport_steps", 0);
         show_steps.setText(today_steps+"");
-         //設置圖表
-        // 獲取保存的數據
+         //Setting up the chart
+        // Get saved data
         Cursor cursor = datasDao.selectAll("step");
         int counts = cursor.getCount();
         getDataValues(counts);
@@ -308,7 +327,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
 
     /**
-     * 返回
+     * return
      *
      * @param requestCode
      * @param resultCode

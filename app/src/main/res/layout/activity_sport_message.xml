@@ -18,17 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/data_all"
-                android:background="@drawable/btn_green3_selector"
-                android:layout_width="@dimen/width_size_0"
-                android:layout_weight="1"
-                android:minHeight="@null"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:text="@string/all"
+                android:layout_weight="1"
+                android:background="@drawable/btn_green3_selector"
                 android:gravity="center"
+                android:minHeight="@null"
+                android:text="@string/all"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20"/>
+                android:textSize="@dimen/font_size_20" />
             <Button
                 android:id="@+id/data_day"
                 android:minHeight="@null"
@@ -164,29 +165,7 @@
                         android:text="@string/sportmsg_unit"/>
                 </RelativeLayout>
             </LinearLayout>
-                <TextView
-                    android:layout_marginTop="@dimen/font_size_20"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/font_size_16"
-                    android:textColor="@color/black"
-                    android:text="@string/sportmsg_counting_mix"/>
-            <ProgressBar
-                android:id="@+id/data_progress"
-                style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/width_size_10"
-                android:progress="1"
-                android:max="7" />
-            <TextView
-                android:layout_marginTop="@dimen/font_size_20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_16"
-                android:gravity="right"
-                android:textColor="@color/black"
-                android:text="@string/sportmsg_day_week"/>
+
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/day_data"

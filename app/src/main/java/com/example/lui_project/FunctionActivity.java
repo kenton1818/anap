@@ -2,6 +2,7 @@ package com.example.lui_project;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -216,5 +217,11 @@ public class FunctionActivity extends BaseActivity implements RadioGroup.OnCheck
     {
         getSupportFragmentManager().beginTransaction().add(R.id.frag_home,mineFragment,"mine").commit();
         take_a_look = false;
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+
     }
 }

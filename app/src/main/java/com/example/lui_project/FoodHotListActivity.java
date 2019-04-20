@@ -3,6 +3,7 @@ package com.example.lui_project;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.example.lui_project.base.BaseActivity;
 import com.example.lui_project.entity.FoodMessage;
@@ -26,7 +28,7 @@ public class FoodHotListActivity extends BaseActivity {
     private ExpandableListView data_list;//折疊listview
     private Bitmap[] bitmaps;//圖片資源
     private int[] ids;//圖片資源ID數組
-
+    int counts  = 0;
     /**
      * set title
      */
@@ -67,40 +69,86 @@ public class FoodHotListActivity extends BaseActivity {
                 this.getString(R.string.Foodhot_food_type_array8), this.getString(R.string.Foodhot_food_type_array9), this.getString(R.string.Foodhot_food_type_array10)};
         food_list = new ArrayList<>();
         //struct data scores
-        DBHelper dbHelper = new DBHelper();
-        Cursor cursor = dbHelper.selectAllDataOfTable("hot");
+
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = FoodHotListActivity.this.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            locale = FoodHotListActivity.this.getResources().getConfiguration().locale;
+        }
+        String language = locale.getLanguage();
+
+
 //        Log.e("among of data", cursor.getCount() + "");
 //        int j = 0;
-        for (int i = 0; i < 10; i++) {
-            FoodType foodType = null;
-            List<FoodMessage> foods = null;
-            int counts = 1;
-            while (cursor.moveToNext()) {
+        if (language ==  "en") {
+            DBHelper dbHelper = new DBHelper();
+            Cursor cursor = dbHelper.selectAllDataOfTable("hot_en");
+            for (int i = 0; i < 10; i++) {
+                FoodType foodType = null;
+                List<FoodMessage> foods = null;
+                counts = 1;
+                while (cursor.moveToNext()) {
 //                Log.e("Count", (++j) + "");
 //                Log.e("counts", counts + "");
-                String name = cursor.getString(cursor.getColumnIndex("name"));
-                String hot = cursor.getString(cursor.getColumnIndex("hot"));
-                String type_name = cursor.getString(cursor.getColumnIndex("type_name"));
-                if (counts == 1) {
-                    foodType = new FoodType();
-                    foods = new ArrayList<>();
-                    foodType.setFood_type(type_name);
+                    String name = cursor.getString(cursor.getColumnIndex("name"));
+                    String hot = cursor.getString(cursor.getColumnIndex("hot"));
+                    String type_name = cursor.getString(cursor.getColumnIndex("type_name"));
+                    if (counts == 1) {
+                        foodType = new FoodType();
+                        foods = new ArrayList<>();
+                        foodType.setFood_type(type_name);
+//                    Log.e("type_name", type_name + "");
+                    }
+                    FoodMessage foodMessage = new FoodMessage();
+                    foodMessage.setFood_name(name);
+                    foodMessage.setHot(hot);
+                    foods.add(foodMessage);
+                    foodType.setFood_list(foods);
+                    if (counts == 20) {
+                        food_list.add(foodType);
+                        break;
+                    }
+                    counts++;
+                }
+            }
+            cursor.close();
+        }
+        else{
+            DBHelper dbHelper = new DBHelper();
+            Cursor cursor = dbHelper.selectAllDataOfTable("hot");
+            for (int i = 0; i < 10; i++) {
+                FoodType foodType = null;
+                List<FoodMessage> foods = null;
+                counts = 1;
+                while (cursor.moveToNext()) {
+//                Log.e("Count", (++j) + "");
+//                Log.e("counts", counts + "");
+                    String name = cursor.getString(cursor.getColumnIndex("name"));
+                    String hot = cursor.getString(cursor.getColumnIndex("hot"));
+                    String type_name = cursor.getString(cursor.getColumnIndex("type_name"));
+                    if (counts == 1) {
+                        foodType = new FoodType();
+                        foods = new ArrayList<>();
+                        foodType.setFood_type(type_name);
 //                    Log.e("type_name", type_name + "");
 
+                    }
+                    FoodMessage foodMessage = new FoodMessage();
+                    foodMessage.setFood_name(name);
+                    foodMessage.setHot(hot);
+                    foods.add(foodMessage);
+                    foodType.setFood_list(foods);
+                    if (counts == 20) {
+                        food_list.add(foodType);
+                        break;
+                    }
+                    counts++;
                 }
-                FoodMessage foodMessage = new FoodMessage();
-                foodMessage.setFood_name(name);
-                foodMessage.setHot(hot);
-                foods.add(foodMessage);
-                foodType.setFood_list(foods);
-                if (counts == 20) {
-                    food_list.add(foodType);
-                    break;
-                }
-                counts++;
             }
+            cursor.close();
         }
-        cursor.close();
+
         Log.e("data lengths", food_list.size() + "");
 //        for (FoodType foodType : food_list) {
 //            Log.e("food type", foodType.getFood_type() + "");

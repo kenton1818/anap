@@ -2,6 +2,7 @@ package com.example.lui_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -256,6 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 gender_str = getResources().getString(R.string.girl);
                 break;
             default:
+                gender_str = getResources().getString(R.string.boy);
                 break;
         }
     }
@@ -542,5 +544,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             return false;
         }
         return false;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+
     }
 }

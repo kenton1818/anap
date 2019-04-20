@@ -44,7 +44,7 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
     private Button finish_setting;
     //存數據
     private DatasDao datasDao;
-    private boolean isToSave;
+    public boolean isToSave;
 
     public static String[] warm_up_exercise = new String[5];
     @Override
@@ -171,95 +171,117 @@ public class SettingHealthyHealthyActivity extends AppCompatActivity implements 
                     Toast.makeText(this,SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_error2), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                final ContentValues values = new ContentValues();
-                // 1。存入運動類型
-                values.put("sport_type" , type);//1
-                // 2。存入運動類型名稱
-                values.put("sport_name" , title_name);//2
-                //3。存入開始年月日
-                values.put("start_year" , start_year);//3
-                values.put("start_month" , start_month);//4
-                values.put("start_day" , start_day);//5
-                // 4。存入結束年月日
-                values.put("stop_year" , stop_year);//6
-                values.put("stop_month" , stop_month);//7
-                values.put("stop_day" , stop_day);//8
-                //5。存入設置的時間
-                values.put("set_time", nowTime);//9
-                //6。存入提醒時間
-                if (alarmminute == 0 && alarmhour == 0){
-                    alarmhour = (int) DateUtils.getDate().get("hour");
-                    alarmminute = (int) DateUtils.getDate().get("minute");
-                }
-                values.put("hint_time" , wantSaveTime);//10
-//                Log.e（“想要設置的時間”，wantSaveTime +“”）;
-                values.put("hint_str" , alarmhour + ":" + alarmminute );
-                values.put("hint_hour",alarmhour);
-                values.put("hint_minute",alarmminute);
-                //7。存入順序
-                values.put("number_values" , 0);
-                values.put("add_24_hour",isAdd_24_hours);
-                //插入前先做個判斷如果想要設置的提醒時間已存在則提示用戶是否覆蓋之前的設置時間
-                Cursor cursor = datasDao.selectColumn("plans", new String[]{"_id", "hint_time"});
-                //如果游標的值大於0，則說明數據庫的計劃表中一有數據存入到當中
-                if (cursor.getCount() != 0){
 
-                    //查詢數據是否有這個值已被存入在數據表中
-                    while (cursor.moveToNext()){
-
-                        int id = cursor.getInt(cursor.getColumnIndex("_id"));
-                        long alarmTime = cursor.getLong(cursor.getColumnIndex("hint_time"));
-//                        Log.e（“查詢出的ID”，id +“”）;
-//// Log.e（“查詢的時間”，alarmTime +“”）;
-//// Log.e（“比較”，wantSaveTime +“<--->”+ alarmTime）;
-                        if (wantSaveTime == alarmTime){//兩個時間相等說明改時間點已被佔用
-// Log.e（“是否進入判斷”，（wantSaveTime  -  alarmTime）+“是”）;
-                            selectID = id;
-                            break;
-                        }else{
-//                           Log.e（“是否進入判斷”，（wantSaveTime  -  alarmTime）+“no”）;
-                        }
-                    }
-
-//                  Log.e（“執行完循環體”，“是”）;
-//                    cursor.close（）;
-//// Log.e（“查詢出的相同數據ID”，selectID +“”）;
-                    if (selectID != 0){
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                        dialog.setTitle(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_settingError_Title));
-                        dialog.setMessage(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_settingError_Message));
-                        final int finalSelectID = selectID;
-                        dialog.setPositiveButton(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_EnterButton), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                datasDao.deleteValue("plans","_id=?",new String[]{String.valueOf(finalSelectID)});
-                                isToSave = true;
-                                insertData(values);
-                            }
-                        });
-                        dialog.setNegativeButton(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_CancelButton), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                isToSave = false;
-                                Toast.makeText(SettingHealthyHealthyActivity.this, SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_CancelMsg), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        dialog.create();
-                        dialog.show();
-                    }else{
-                        isToSave = true;
-                        insertData(values);
-                    }
-                }else {
-                    isToSave = true;
-                    insertData(values);
-                }
+                contain_data(  type,  title_name,  start_year, start_month, start_day, stop_year, stop_month, stop_day,  nowTime ,  wantSaveTime,  isAdd_24_hours,  selectID );
 
                 break;
             default:
                 break;
         }
     }
+
+    public Boolean contain_data( int type, String title_name, int start_year,int start_month,int start_day,int stop_year,int stop_month,int stop_day, Long nowTime , Long wantSaveTime, int isAdd_24_hours, int selectID )
+    {
+        final ContentValues values = new ContentValues();
+        // 1。存入運動類型
+        values.put("sport_type" , type);//1
+        Log.d("sport_type",type+"");
+        // 2。存入運動類型名稱
+        values.put("sport_name" , title_name);//2
+        Log.d("sport_name",title_name+"");
+        //3。存入開始年月日
+        values.put("start_year" , start_year);//3
+        Log.d("start_year",start_year+"");
+        values.put("start_month" , start_month);//4
+        Log.d("start_month",start_month+"");
+        values.put("start_day" , start_day);//5
+        Log.d("start_day",start_day+"");
+        // 4。存入結束年月日
+        values.put("stop_year" , stop_year);//6
+        Log.d("stop_year",stop_year+"");
+        values.put("stop_month" , stop_month);//7
+        Log.d("stop_month",stop_month+"");
+        values.put("stop_day" , stop_day);//8
+        Log.d("stop_day",stop_day+"");
+        //5。存入設置的時間
+        values.put("set_time", nowTime);//9
+        Log.d("set_time",nowTime+"");
+        //6。存入提醒時間
+        if (alarmminute == 0 && alarmhour == 0){
+            alarmhour = (int) DateUtils.getDate().get("hour");
+            alarmminute = (int) DateUtils.getDate().get("minute");
+        }
+        values.put("hint_time" , wantSaveTime);//10
+//                Log.e（“想要設置的時間”，wantSaveTime +“”）;
+        values.put("hint_str" , alarmhour + ":" + alarmminute );
+        values.put("hint_hour",alarmhour);
+        values.put("hint_minute",alarmminute);
+        //7。存入順序
+        values.put("number_values" , 0);
+        values.put("add_24_hour",isAdd_24_hours);
+        //插入前先做個判斷如果想要設置的提醒時間已存在則提示用戶是否覆蓋之前的設置時間
+        Cursor cursor = datasDao.selectColumn("plans", new String[]{"_id", "hint_time"});
+        //如果游標的值大於0，則說明數據庫的計劃表中一有數據存入到當中
+        if (cursor.getCount() != 0){
+
+            //查詢數據是否有這個值已被存入在數據表中
+            while (cursor.moveToNext()){
+
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+                long alarmTime = cursor.getLong(cursor.getColumnIndex("hint_time"));
+//                        Log.e（“查詢出的ID”，id +“”）;
+//// Log.e（“查詢的時間”，alarmTime +“”）;
+//// Log.e（“比較”，wantSaveTime +“<--->”+ alarmTime）;
+
+                if (wantSaveTime == alarmTime){//兩個時間相等說明改時間點已被佔用
+// Log.e（“是否進入判斷”，（wantSaveTime  -  alarmTime）+“是”）;
+                    Log.d("wantSaveTime",wantSaveTime+"");
+                    selectID = id;
+
+                    Log.d("selectID",selectID+"");
+                    break;
+                }else{
+//                           Log.e（“是否進入判斷”，（wantSaveTime  -  alarmTime）+“no”）;
+                }
+            }
+
+//                  Log.e（“執行完循環體”，“是”）;
+//                    cursor.close（）;
+//// Log.e（“查詢出的相同數據ID”，selectID +“”）;
+            if (selectID != 0){
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setTitle(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_settingError_Title));
+                dialog.setMessage(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_settingError_Message));
+                final int finalSelectID = selectID;
+                dialog.setPositiveButton(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_EnterButton), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        datasDao.deleteValue("plans","_id=?",new String[]{String.valueOf(finalSelectID)});
+                        isToSave = true;
+                        insertData(values);
+                    }
+                });
+                dialog.setNegativeButton(SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_CancelButton), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        isToSave = false;
+                        Toast.makeText(SettingHealthyHealthyActivity.this, SettingHealthyHealthyActivity.this.getString(R.string.Setting_plan_dialog_CancelMsg), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.create();
+                dialog.show();
+            }else{
+                isToSave = true;
+                insertData(values);
+            }
+        }else {
+            isToSave = true;
+            insertData(values);
+        }
+
+        return isToSave;
+    }
+
 
     private void insertData(ContentValues values){
         if (isToSave){

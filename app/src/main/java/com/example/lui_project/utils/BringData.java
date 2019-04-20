@@ -15,9 +15,9 @@ import java.io.InputStream;
  * 讀取asset下的數據庫到local
  */
 public class BringData {
-   //數據庫路徑
+   //Database path
     public static final String DATA_PATH = "/data/data/com.example.lui_project/databases/";
-    //文件名
+    //file name
     public static final String DATA_NAME = "keepfit";
     public static void getDataFromAssets(Context context) throws IOException {
         Log.e("input length","perform！");
@@ -35,7 +35,7 @@ public class BringData {
             //create folder
             file.mkdir();
         }
-        //文件夾存在時進行讀寫操作
+        //Read and write operations when a folder exists
         if (file.exists()){
             Log.e("folder create success",file.exists()+"");
             BufferedInputStream bIs = new BufferedInputStream(is);
