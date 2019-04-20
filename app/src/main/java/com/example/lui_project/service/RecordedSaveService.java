@@ -45,24 +45,24 @@ public class RecordedSaveService extends Service {
         datasDao = new DatasDao(this);
         boolean result = isActivityRunning(this);
         int step;
-        //判斷如何存儲數值
-        if (result){//獲取步數直接獲取
+        //Determine how to store the value
+        if (result){//Get the number of steps directly
             step = StepDetector.CURRENT_SETP;
-        }else {//獲取加什麼記錄步數
+        }else {//Get the number of steps directly...
             step = StepDetector.CURRENT_SETP + SaveKeyValues.getIntValues("sport_steps" ,0);
         }
-        //通過步數計算消耗的熱量和行走的路程
+        //Calculate the amount of heat consumed and the distance traveled by the number of steps
         double distance_values = step * custom_step_length * 0.01 *0.001;//km
         String distance_Str = formatDouble(distance_values);
         double heat_values = custom_weight * distance_values * 1.036;//cls
         String heat_Str = formatDouble(heat_values);
-        //取日期
+        //get date
         Map<String,Object> map = DateUtils.getDate();
         int year = (int) map.get("year");
         int month = (int) map.get("month");
         int day = (int) map.get("day");
         String date = (String) map.get("date");
-        //存入數據
+        //Deposit data
         ContentValues values = new ContentValues();
         values.put("date",date);
         values.put("year",year);
@@ -94,7 +94,7 @@ public class RecordedSaveService extends Service {
     }
 
     /**
-     * 用判斷活動是否在運行
+     * Determine if the activity is running
      * @param mContext
      * @return
      */

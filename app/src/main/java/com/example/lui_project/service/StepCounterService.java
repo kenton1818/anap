@@ -28,17 +28,17 @@ public class StepCounterService extends Service {
 
     public static final String alarmSaveService = "SETALARM";
     private static final String TAG = "StepCounterService";
-    public static Boolean FLAG = false;// 服務運行標誌
+    public static Boolean FLAG = false;// Service running sign
     public String Flag = "0";
-    private SensorManager mSensorManager;// 傳感器服務
-    public StepDetector detector;// 傳感器監聽對象
+    private SensorManager mSensorManager;// Sensor service
+    public StepDetector detector;// Sensor listener
 
-    private PowerManager mPowerManager;// 電源管理服務
-    private WakeLock mWakeLock;// 屏幕燈
-    private AlarmManager alarmManager;//鬧鐘管理器
-    private PendingIntent pendingIntent;//延遲意圖
-    private Calendar calendar;//日期
-    private Intent intent;//意圖
+    private PowerManager mPowerManager;// Power management service
+    private WakeLock mWakeLock;// Screen light
+    private AlarmManager alarmManager;//Alarm clock manager
+    private PendingIntent pendingIntent;//Delayed intent
+    private Calendar calendar;//date
+    private Intent intent;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -50,39 +50,39 @@ public class StepCounterService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.e(TAG, "SERVICE START");
-        FLAG = true;// 標記為服務正在運行
+        FLAG = true;// Mark as service is running
 
-        // 創建監聽器類，實例化監聽對象
-        detector = new StepDetector(this);//實例化傳感器對象
-        detector.walk = 1;//設置步數從一開始
-        // 獲取傳感器的服務，初始化傳感器
+        // Create a listener class, instantiate a listener object
+        detector = new StepDetector(this);//Instantiating sensor objects
+        detector.walk = 1;//Set the number of steps from the beginning
+        // Get sensor service, initialize sensor
         mSensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
-        // 註冊傳感器，註冊監聽器
+        // Register sensor, register listener
         mSensorManager.registerListener(detector,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
-        // 電源管理服務
+        // Power management service
         mPowerManager = (PowerManager) this
                 .getSystemService(Context.POWER_SERVICE);
         mWakeLock = mPowerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myapp:mywakelocktag");
-        //保持設備狀態
+        //Keep device status
         mWakeLock.acquire();
 
-        //設置一個定時服務
+        //Set up a timing service
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 23);//時
-        calendar.set(Calendar.MINUTE, 59);//分
-        calendar.set(Calendar.SECOND, 0);//秒
-        calendar.set(Calendar.MILLISECOND, 0);//毫秒
+        calendar.set(Calendar.HOUR_OF_DAY, 23);//hour
+        calendar.set(Calendar.MINUTE, 59);//min
+        calendar.set(Calendar.SECOND, 0);//second
+        calendar.set(Calendar.MILLISECOND, 0);//millisecond
         intent = new Intent(this, FunctionBroadcastReceiver.class);//send notification
-        intent.setAction(alarmSaveService);//設Action
+        intent.setAction(alarmSaveService);//set Action
         pendingIntent = PendingIntent.getBroadcast(this, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        //設置一個定時器
+        //Set a timer
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }

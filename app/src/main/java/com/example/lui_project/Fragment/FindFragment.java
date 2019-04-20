@@ -33,7 +33,7 @@ import com.example.lui_project.utils.Constant;
 
 
 public class FindFragment extends Fragment {
-    private View view;//界面的布局
+    private View view;//layout
     private Context context;
     public static Bitmap[] bitmaps = new Bitmap[5];
     public static String[] warm_up_exercise = new String[5];
@@ -109,5 +109,7 @@ public class FindFragment extends Fragment {
             cursor.close();
         }
     }
+
+
 
 }

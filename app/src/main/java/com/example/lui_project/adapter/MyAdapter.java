@@ -23,7 +23,7 @@ public class MyAdapter extends BaseAdapter {
     private LayoutInflater inflater; //Layout filler
     private List<Map<String,Object>> list; //source
     private FindFragment findFragment; // fragment
-    private Context context; //上下文
+    private Context context; //context
 
     /**
      * Construction method

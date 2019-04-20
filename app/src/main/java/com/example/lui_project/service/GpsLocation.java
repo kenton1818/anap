@@ -18,8 +18,10 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.lui_project.Fragment.SportFragment;
+import com.example.lui_project.R;
 import com.example.lui_project.utils.SaveKeyValues;
 
 public class GpsLocation extends Service {
@@ -61,6 +63,7 @@ public class GpsLocation extends Service {
 
             @Override
             public void onProviderDisabled(String s) {
+
                 Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);

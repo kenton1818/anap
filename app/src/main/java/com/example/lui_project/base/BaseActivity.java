@@ -15,8 +15,8 @@ import com.example.lui_project.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private TextView title_center;//標題的中間部分
-    private ImageView title_left,title_right;//標題的左邊和右邊
+    private TextView title_center;//The middle part of the title
+    private ImageView title_left,title_right;//Left and right of the title
     private RelativeLayout title_relRelativeLayout;
 
     @Override
@@ -31,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-      * init標題
+      * init title
       */
     public void initTitle(){
         title_center = (TextView) findViewById(R.id.titles);
@@ -45,26 +45,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         title_relRelativeLayout.setBackgroundResource(color);
     }
     /**
-      * 設置TextView的下滑線
+      * Set the downline of the TextView
       * @param view
       */
     public void setTextViewUnderLine(TextView view){
         Paint paint = view.getPaint();
-        paint.setColor(getResources().getColor(R.color.btn_gray));//設置畫筆顏色
-        paint.setAntiAlias(true);//設置抗鋸齒
-        paint.setFlags(Paint.UNDERLINE_TEXT_FLAG);//設置下滑線
+        paint.setColor(getResources().getColor(R.color.btn_gray));//Set brush color
+        paint.setAntiAlias(true);//Set anti-aliasing
+        paint.setFlags(Paint.UNDERLINE_TEXT_FLAG);//Set underline
         view.invalidate();
     }
     /**
-      * init標題
+      * init title
       */
     protected abstract void setActivityTitle();
     /**
-      * init窗口
+      * init window
       */
     protected abstract void getLayoutToView();
     /**
-      * 設置init的值和變量
+      * Set the value and variable of init
       */
     protected abstract void initValues();
     /**
@@ -72,16 +72,14 @@ public abstract class BaseActivity extends AppCompatActivity {
       */
     protected abstract void initViews();
     /**
-      * init 監聽
+      * init monitor
       */
     protected abstract void setViewsListener();
-    /**
-      * 設置相關管功能
-      */
+
     protected abstract void setViewsFunction();
 
     /**
-      * 設置標題的名稱
+      * title name
       * @param name
       */
     public void setTitle(String name){
@@ -89,7 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         title_left.setVisibility(View.INVISIBLE);
     }
     /**
-      * 設置標題有返回鍵功能-->可以改變返回鍵的圖片
+      * Set the title with the return key function --> can change the picture of the return key
       * @param name
       * @param activity
       */
@@ -105,7 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-      * 獲取標題左邊的按鈕
+      * Get the button to the left of the title
       * @param name
       * @return
       */
@@ -115,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return title_left;
     }
     /**
-      * 設置標題左 中 右 全部顯示
+      * Set title left center right display
       * @param name
       * @param activity
       * @param picID
@@ -137,7 +135,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-      * 設置標題的文字顏色
+      * Set the text color of the title
       * @param colorID
       */
     public void setTitleTextColor(int colorID){
@@ -145,14 +143,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-      * 設置標題左側圖片按鈕的圖片
+      * Set the text color of the title...
       * @param picID
       */
     public void setTitleLeftImage(int picID){
         title_left.setImageResource(picID);
     }
     /**
-      * 設置標題右側圖片按鈕的圖片
+      *Set the image of the image button to the right of the title
       * @param picID
       */
     public void setTitleRightImage(int picID){

@@ -44,20 +44,20 @@ public class FunctionBroadcastReceiver extends BroadcastReceiver {
             int taskType;
 
             int mode = intent.getIntExtra("mode", 1);
-            String[] sport = new String[5];
-            sport[0] = "俯身啞鈴飛鳥";
-            sport[1] = "俯臥撑";
-            sport[2] = "滾輪支點俯臥撑";
-            sport[3] = "平板臥推";
-            sport[4] = "仰臥平板槓鈴肱三彎舉";
+            String[] warm_up_exercise = new String[5];
+            warm_up_exercise[0]=context.getString(R.string.warm_up_exercise0);
+            warm_up_exercise[1]=context.getString(R.string.warm_up_exercise1);
+            warm_up_exercise[2]=context.getString(R.string.warm_up_exercise2);
+            warm_up_exercise[3]=context.getString(R.string.warm_up_exercise3);
+            warm_up_exercise[4]=context.getString(R.string.warm_up_exercise4);
             switch (mode){
-                case 1://执行的是单个的定时任务
+                case 1://Perform a single task
                     taskType = intent.getIntExtra("hint_type",0);
                     Log.e("通知","通知用戶進行運動");
                     Log.e("通知","提示類型" + taskType);
 
-                    Log.e("通知","提醒計畫" + sport[taskType]);
-                    sendNotification(context , taskType ,sport[taskType]);
+                    Log.e("通知","提醒計畫" + warm_up_exercise[taskType]);
+                    sendNotification(context , taskType ,warm_up_exercise[taskType]);
                     context.startService(new Intent(context, ExecuteHealthyPlanService.class).putExtra("code", Constant.ONE_PLAN));
                     break;
                 case 2://Executing multiple timing tasks
@@ -68,10 +68,10 @@ public class FunctionBroadcastReceiver extends BroadcastReceiver {
                     //Get current data
                     Log.e ("Notification", "Notify the user to exercise");
                     Log.e ("Notification", "Prompt Type" + taskType);
-                    Log.e ("Notification", "Prompt Plan" + sport[taskType]);
+                    Log.e ("Notification", "Prompt Plan" + warm_up_exercise[taskType]);
                     Log.e ("data", "data_ID" + taskID);
                     Log.e ("data", "data serial number" + taskNum);
-                    sendNotification(context , taskType ,sport[taskType]);
+                    sendNotification(context , taskType ,warm_up_exercise[taskType]);
                     //The number of tasks is greater than 1
                     context.startService(new Intent(context, ExecuteHealthyPlanService.class).putExtra("code", Constant.NEXT_PLAN).putExtra("started_num",taskNum).putExtra("started_id",taskID));
                     break;

@@ -40,7 +40,7 @@ public class ExecuteHealthyPlanService extends Service {
     private int first_hint_id;
     private int first_hint_num;
     private int first_hint_type;
-
+    public static Boolean isSetAlarm;
 
     private int finish_plans;//complete the plan
     public ExecuteHealthyPlanService() {
@@ -55,6 +55,7 @@ public class ExecuteHealthyPlanService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        isSetAlarm = false;
         datasDao = new DatasDao(this);
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         SaveKeyValues.createSharePreferences(this);
@@ -81,12 +82,19 @@ public class ExecuteHealthyPlanService extends Service {
                     int count = cursor.getCount();
                     cursor.close();
                     if (count == 0){
+                        Log.d("data_count", count+"");
                         sendBroadcast(new Intent(this, FunctionBroadcastReceiver.class).setAction("PLAN").putExtra("mode", 3));
                     }else {
 //                        compareAllData();
+
+                        Log.d("data_count", count+"");
                         if (count > 1){
+
+                            Log.d("data_count", count+"more than one");
                             getHealthyDataAndSortDataToSetAlarm();//Sort task and then set
                         }else {
+
+                            Log.d("data_count", count+" less than one");
                             setTaskAtOnlyOneDataInDataList();//Set up a single task
                         }
                     }
@@ -110,9 +118,9 @@ public class ExecuteHealthyPlanService extends Service {
         }
         return super.onStartCommand(intent, flags, startId);
     }
-    //================================ 設置下一個定時任務=========== =====================
+    //================================ Set the next scheduled task=========== =====================
     /**
-     * 設置下一個定時任務
+     * Set the next scheduled task
      * @param oldID
      * @param oldNum
      */
@@ -162,10 +170,12 @@ public class ExecuteHealthyPlanService extends Service {
             int stop_month = cursor.getInt(cursor.getColumnIndex("stop_month"));//End Date--->Month
             int stop_day = cursor.getInt(cursor.getColumnIndex("stop_day"));//End Date--->Day
             Long stopDate = DateUtils.getMillisecondValues(stop_year, stop_month, stop_day);
+
             if (stop_year == (int)(DateUtils.getDate().get("year"))
                    && stop_month == (int)(DateUtils.getDate().get("month"))
                     && stop_day == (int)(DateUtils.getDate().get("day"))){//This means that the current data will no longer be saved in the data --> delete the data
                 finish_plans = SaveKeyValues.getIntValues("finish_plan" , 0);
+                Log.d("deted_plan","deted_plan1");
                 SaveKeyValues.putIntValues("finish_plan",++finish_plans);
                 datasDao.deleteValue("plans", "_id=?", new String[]{String.valueOf(oldID)});
             }
@@ -190,10 +200,11 @@ public class ExecuteHealthyPlanService extends Service {
             Log.e("==","**************************" );
 
             if (stop_year == (int)(DateUtils.getDate().get("year"))
-                    && stop_month == (int)(DateUtils.getDate().get("month"))
+                    && stop_month == (int)(DateUtils.getDate().get("month"))-1
                     && stop_day == (int)(DateUtils.getDate().get("day"))){//This means that the current data will no longer be saved in the data --> delete the data
                 Log.e("=="," executed");
                 finish_plans = SaveKeyValues.getIntValues("finish_plan" , 0);
+                Log.d("deted_plan","deted_plan2");
                 SaveKeyValues.putIntValues("finish_plan",++finish_plans);
                 datasDao.deleteValue("plans", "_id=?", new String[]{String.valueOf(id)});
                 break;
@@ -203,6 +214,7 @@ public class ExecuteHealthyPlanService extends Service {
     }//================================================================================================= ==========================
     /**
            * Arrange the data --> At this time there are at least two data
+     排序, 因為多於一個, 確定下一個提醒時間
            */
     private void getHealthyDataAndSortDataToSetAlarm() {
         Log.e ("Set Timing", "Sort Tasks");
@@ -304,8 +316,11 @@ public class ExecuteHealthyPlanService extends Service {
                         }
                         cursor.close();//Close cursor
                         index += 1;//Query the next data
+                    Log.d("IsToBroadcst", accordanceNumberSetAlarmTask(index)+"");
                     return accordanceNumberSetAlarmTask(index);
                 } else {//Set the time greater than the current time to set the timed task
+
+                    Log.d("IsToBroadcst", "else");
                         setAlarmService(2, id, number, hint_type, hintTime);
                     }
                 }
@@ -418,6 +433,8 @@ public class ExecuteHealthyPlanService extends Service {
         toBroadReciver.putExtra("hint_type",hint_type);//int
         senser = PendingIntent.getBroadcast(this, 0, toBroadReciver, PendingIntent.FLAG_UPDATE_CURRENT);
         manager.set(AlarmManager.RTC_WAKEUP, hintTime, senser);
+        Log.d("setAlarm","seted");
+        isSetAlarm = true;
     }
     @Override
     public void onDestroy() {

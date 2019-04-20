@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.lui_project"
-        minSdkVersion 15
+        minSdkVersion 25
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,12 @@ android {
             dirs 'libs'
         }
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
 }
 
 dependencies {
@@ -34,4 +40,15 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
 
     implementation(name: 'NiceUi', ext: 'aar')
+    testImplementation 'junit:junit:4.12'
+    // Optional -- Mockito framework（可选，用于模拟一些依赖对象，以达到隔离依赖的效果）
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    testImplementation 'org.robolectric:robolectric:4.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    testImplementation 'com.android.support.test:rules:0.5'
+    testImplementation 'com.android.support.test:runner:0.5'
+    androidTestImplementation 'com.21buttons:fragment-test-rule:2.0.1'
+    debugImplementation 'com.21buttons:fragment-test-rule-extras:2.0.1'
+    testImplementation 'org.robolectric:robolectric:3.0-rc3'
 }

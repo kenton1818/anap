@@ -18,32 +18,32 @@ public class StepDetector implements SensorEventListener {
 
     public static int CURRENT_SETP = 0;
     public int walk = 0;
-    public static float SENSITIVITY = 8; // SENSITIVITY靈敏度
+    public static float SENSITIVITY = 8; // SENSITIVITY sensitivity
 
     private float mLastValues[] = new float[3 * 2];
     private float mScale[] = new float[2];
-    private float mYOffset;//位移
-    private static long mEnd = 0;//運動相隔時間
-    private static long mStart = 0;//運動開始時間
+    private float mYOffset;//Displacement
+    private static long mEnd = 0;//Movement time interval
+    private static long mStart = 0;//Start time of exercise
     private Context context;
 
     /**
-     * 最後加速度方向
+     * Final acceleration direction
      */
-    private float mLastDirections[] = new float[3 * 2];//最後的方向
+    private float mLastDirections[] = new float[3 * 2];//Final direction
     private float mLastExtremes[][] = { new float[3 * 2], new float[3 * 2] };
     private float mLastDiff[] = new float[3 * 2];
     private int mLastMatch = -1;
 
     /**
-     * 傳入上下文的構造函數
+     * Constructor passed in context
      *
      * @param context
      */
     public StepDetector(Context context) {
         super();
         this.context = context;
-// 用於判斷是否計步的值
+// The value used to determine whether to count
         int h = 480;
         mYOffset = h * 0.5f;
         mScale[0] = -(h * 0.5f * (1.0f / (SensorManager.STANDARD_GRAVITY * 2)));//重力加速度
@@ -56,23 +56,22 @@ public class StepDetector implements SensorEventListener {
         synchronized (this) {
             if (sensor.getType() == Sensor.TYPE_ORIENTATION) {
             } else {
-// 判斷傳感器的類型是否為重力傳感器(加速度傳感器)
+// Determine whether the type of sensor is a gravity sensor (acceleration sensor)
                 int j = (sensor.getType() == Sensor.TYPE_ACCELEROMETER) ? 1 : 0;
                 if (j == 1) {
                     float vSum = 0;
-// 獲取x軸、y軸、z軸的加速度
+// Get the acceleration of the x-axis, y-axis, and z-axis
                     for (int i = 0; i < 3; i++) {
                         final float v = mYOffset + event.values[i] * mScale[j];
                         vSum += v;
                     }
                     int k = 0;
                     float v = vSum / 3;//獲取三軸加速度的平均值
-// 判斷人是否處於行走中，主要從以下幾個方面判斷：
-// 人如果走起來了，一般會連續多走幾步。因此，如果沒有連續4-5個波動，那麼就極大可能是乾擾。
-// 人走動的波動，比坐車產生的波動要大，因此可以看波峰波谷的高度，只檢測高於某個高度的波峰波谷。
-// 人的反射神經決定了人快速動的極限，怎麼都不可能兩步之間小於0.2秒，因此間隔小於0.2秒的波峰波谷直接跳過通過重力加速計感應，
-// 重力變化的方向，大小。與正常走路或跑步時的重力變化比對，達到一定相似度時認為是在走路或跑步。實現起來很簡單，只要手機有重力感應器就能實現。
-// 軟件記步數的精準度跟用戶的補償以及體重有關，也跟用戶設置的傳感器的靈敏度有關係，在設置頁面可以對相應的參數進行調節。一旦調節結束，可以重新開始。
+// Determine whether the person is walking, mainly from the following aspects:
+// If a person walks up, they will usually take a few more steps. Therefore, if there are no 4-5 fluctuations in succession, then it is likely to be interference.
+// The fluctuations of people walking are greater than the fluctuations caused by the car, so you can see the height of the wave trough and only detect the crests above a certain height.
+// The reflex nerve of a person determines the limit of rapid movement of a person. It is impossible to be less than 0.2 seconds between two steps. Therefore, the wave trough of interval less than 0.2 second directly skips the induction by gravity accelerometer.
+// The direction and size of gravity change. Compared with the change of gravity during normal walking or running, it is considered to be walking or running when a certain similarity is reached. It's very simple to implement, as long as the phone has a gravity sensor.
                     float direction = (v > mLastValues[k] ? 1 : (v < mLastValues[k] ? -1 : 0));
                     if (direction == -mLastDirections[k]) {
                         int extType = (direction > 0 ? 0 : 1);
@@ -86,7 +85,7 @@ public class StepDetector implements SensorEventListener {
 
                             if (isAlmostAsLargeAsPrevious && isPreviousLargeEnough && isNotContra) {
                                 mEnd = System.currentTimeMillis();
-                                // 通過判斷兩次運動間隔判斷是否走了一步
+                                // Determine whether to take a step by judging the two motion intervals
                                 if (mEnd - mStart > 500) {
                                     CURRENT_SETP++;
                                     mLastMatch = extType;

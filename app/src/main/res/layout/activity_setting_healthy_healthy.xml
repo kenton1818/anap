@@ -24,111 +24,147 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/width_size_5"
-            android:background="@drawable/shape_btn_back_background"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/plan_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/width_size_5"
-                android:layout_marginTop="@dimen/width_size_5"
-                android:gravity="center"
-                android:text="@string/activity_setting_healthy_type"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/width_size_5"
-                android:gravity="center"
-                android:text="@string/dialog_title"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/width_size_2"
-                android:layout_marginBottom="@dimen/width_size_5"
-                android:background="@color/white" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/set_tip_time"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20"
-                android:textStyle="bold" />
-
-            <TimePicker
-                android:id="@+id/timePicker1"
-                android:layout_width="wrap_content"
-                android:layout_height="347dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/width_size_2"
-                android:layout_marginBottom="@dimen/width_size_3"
-                android:layout_marginTop="@dimen/width_size_3"
-                android:background="@color/white" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/width_size_5"
+                android:layout_marginTop="@dimen/width_size_5"
+                android:layout_marginEnd="@dimen/width_size_5"
+                android:layout_marginBottom="@dimen/width_size_5"
+                android:background="@drawable/shape_btn_back_background"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/plan_start"
-                    android:layout_width="@dimen/width_size_0"
+                <TextView
+                    android:id="@+id/plan_type"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="@null"
-                    android:layout_marginBottom="@dimen/width_size_3"
-                    android:layout_marginRight="@dimen/width_size_10"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_red2_selector"
+                    android:layout_marginTop="@dimen/width_size_5"
+                    android:layout_marginBottom="@dimen/width_size_5"
                     android:gravity="center"
-                    android:text="@string/start_date"
+                    android:text="@string/activity_setting_healthy_type"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_20"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/plan_stop"
-                    android:layout_width="@dimen/width_size_0"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/width_size_3"
-                    android:layout_marginLeft="@dimen/width_size_10"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_red2_selector"
+                    android:layout_marginBottom="@dimen/width_size_5"
                     android:gravity="center"
+                    android:text="@string/dialog_title"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_20"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/width_size_2"
+                    android:layout_marginBottom="@dimen/width_size_5"
+                    android:background="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="132dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="117dp"
+                        android:layout_marginEnd="113dp"
+                        android:text="@string/set_tip_time"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_20"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TimePicker
+                        android:id="@+id/timePicker1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="347dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="0dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/width_size_2"
+                    android:layout_marginTop="@dimen/width_size_3"
+                    android:layout_marginBottom="@dimen/width_size_3"
+                    android:background="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/plan_start"
+                        android:layout_width="147dp"
+                        android:layout_height="89dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="29dp"
+                        android:layout_marginEnd="186dp"
+                        android:layout_marginRight="@dimen/width_size_10"
+                        android:layout_marginBottom="@dimen/width_size_3"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_red2_selector"
+                        android:gravity="center"
+                        android:minHeight="@null"
+                        android:text="@string/start_date"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_20"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/plan_stop"
+                        android:layout_width="147dp"
+                        android:layout_height="89dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="185dp"
+                        android:layout_marginLeft="@dimen/width_size_10"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="@dimen/width_size_3"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_red2_selector"
+                        android:gravity="center"
+                        android:minHeight="@null"
+                        android:text="@string/end_date"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_20"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/set_clock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/width_size_2"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_red_selector"
                     android:minHeight="@null"
-                    android:text="@string/end_date"
+                    android:text="@string/set_plan"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_20"
                     android:textStyle="bold" />
             </LinearLayout>
+        </ScrollView>
 
-            <Button
-                android:id="@+id/set_clock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/width_size_2"
-                android:layout_weight="1"
-                android:background="@drawable/btn_red_selector"
-                android:minHeight="@null"
-                android:text="@string/set_plan"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20"
-                android:textStyle="bold" />
-        </LinearLayout>
+
     </RelativeLayout>
 
 

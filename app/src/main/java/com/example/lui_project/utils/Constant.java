@@ -1,8 +1,8 @@
 package com.example.lui_project.utils;
 
 public class Constant {
-    public static final int TURN_MAIN = 1;//加載運動界面
-    public static final int MAKE_PLAN = 2;//加載find界面
+    public static final int TURN_MAIN = 1;//load sport
+    public static final int MAKE_PLAN = 2;//load find
     public static final long DAY_FOR_24_HOURS = 60 * 60 * 24 * 1000;
 
 
@@ -16,4 +16,8 @@ public class Constant {
     public static final int NEXT_PLAN = 3;//next plan
     public static final int ONE_PLAN = 4;//loop one plan
     public static final int STOP_PLAN = 5;//end plan
+
+    public static final String SP_NAME = "setting";
+    public static final String SP_USER_LANG = "user_language";
+
 }

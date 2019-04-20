@@ -11,7 +11,7 @@ public class DBHelper {
     }
 
     /**
-     * 查詢數據庫
+     * Query database
      * @param table
      * @param columns
      * @param selection
@@ -29,7 +29,7 @@ public class DBHelper {
 
     }
     /**
-     * 關閉數據庫操作
+     * Turn off database operations
      */
    public void dbHelpclose(){
        if (db.isOpen()){
@@ -38,7 +38,7 @@ public class DBHelper {
    }
 
     /**
-     * 按需求查詢
+     * Query on demand
      * @param testType
      * @param handType
      * @return
@@ -58,7 +58,7 @@ public class DBHelper {
     }
 
     /**
-     * 返回一個用於查詢所有數據的游標
+     * Returns a cursor for querying all data
      * @param name
      * @return
      */
